@@ -12,17 +12,17 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1")
 public class ApplicationController {
 
-    @GetMapping("/home")
-    public String home() {
-        return new String("Hello MegaStore!");
+    @GetMapping("/categories")
+    public String categories() {
+        return new String("Hello categories!");
     }
-
-    @GetMapping("/home/hotProducts")
-    public List<Product> getHotProducts(List<Product> productList) {
-        return productList.stream()
-                .filter(hotProducts -> hotProducts.getIsHotProduct().equals(true))
-                .limit(9)
-                .collect(Collectors.toList());
+    @GetMapping("/subcategories")
+    public String subcategories() {
+        return new String("Hello subcategories!");
+    }
+    @GetMapping("/products")
+    public String products() {
+        return new String("Hello products!");
 
     }
 }
