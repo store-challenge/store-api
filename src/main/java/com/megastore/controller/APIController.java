@@ -32,13 +32,4 @@ public class APIController {
 
         return new Message("All good. You can see this because you are Authenticated with a Token granted the 'read:users' scope");
     }
-
-    @GetMapping("/home/hotProducts")
-    public List<Product> getHotProducts(List<Product> productList) {
-        return productList.stream()
-                .filter(hotProducts -> hotProducts.getIsHotProduct().equals(true))
-                .limit(9)
-                .collect(Collectors.toList());
-
-    }
 }
