@@ -21,13 +21,9 @@ public class CategoriesController {
 
     private final CategoriesService categoriesService;
 
-    @GetMapping("/show")
+    @GetMapping("/list")
     public List<Categories> showCategories() {
         return categoriesService.findAll();
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "categoriesService.findAll()";
-    }
 }
