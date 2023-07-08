@@ -16,16 +16,8 @@ public class ProductService {
     private ProductRepository productRepository;
 
     @Transactional(readOnly = true)
-    public Optional<Product> findHotProducts(Integer count) {
-        if (count.equals(2)) {
-            Optional<Product> searchedProducts = productRepository.findHotProducts(2);
-            return searchedProducts;
-        }
-        if (count.equals(4)) {
-            Optional<Product> searchedProducts = productRepository.findHotProducts(4);
-            return searchedProducts;
-        }
-        Optional<Product> searchedProducts = productRepository.findHotProducts(9);
+    public Optional<Product> findHotProducts() {
+        Optional<Product> searchedProducts = productRepository.findHotProducts();
         return searchedProducts;
     }
 

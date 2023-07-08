@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -20,7 +21,11 @@ public class ProductController {
 
     @GetMapping("/hot/{count}")
     public Optional<Product> getHotProducts(@PathVariable(name = "count") Integer countProducts) {
-        Optional<Product> searchedProducts = productService.findHotProducts(countProducts);
+
+        Optional<Product> searchedProducts = productService.findHotProducts();
+        searchedProducts.stream().filter(hotProducts -> hotProducts.getIsHotProduct().equals(true))
+                .limit(countProducts)
+                .collect(Collectors.toList());
         return searchedProducts;
     }
     @GetMapping("/list")
