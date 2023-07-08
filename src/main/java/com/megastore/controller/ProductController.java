@@ -19,8 +19,8 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @GetMapping("/hot/{count}")
-    public Optional<Product> getHotProducts(@PathVariable(name = "count") Integer countProducts) {
+    @GetMapping("/hot")
+    public Optional<Product> getHotProducts(Integer countProducts) {
 
         Optional<Product> searchedProducts = productService.findHotProducts();
         searchedProducts.stream().filter(hotProducts -> hotProducts.getIsHotProduct().equals(true))
