@@ -41,7 +41,7 @@ public class Product {
     @JoinColumn(name = "subcategory_id", referencedColumnName = "id")
     private SubCategories subCategoryId;
 
-    //Product
+    //Images
     @OneToMany(mappedBy = "product")
     private List<Images> images;
 }
