@@ -17,13 +17,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "product", catalog = "public")
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
+public class Product extends  BaseEntity{
     @Column(name="product_title")
     private String name;
 
@@ -34,12 +28,12 @@ public class Product {
     private String description;
 
     @Column(name = "product_is_hot")
-    private String isHotProduct;
+    private Boolean isHotProduct;
 
     //SubCategories
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "subcategory_id", referencedColumnName = "id")
-    private SubCategories subCategoryId;
+    private SubCategories subCategories;
 
     //Images
     @OneToMany(mappedBy = "product")

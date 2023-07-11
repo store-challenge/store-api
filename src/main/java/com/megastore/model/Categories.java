@@ -1,6 +1,8 @@
 package com.megastore.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,22 +11,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "categories", catalog = "public")
-public class Categories {
+public class Categories extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "icon_name")
+    @Column(name = "icon_name", nullable = false)
     private String iconName;
 
     @Column(name = "path_url")
@@ -33,6 +32,10 @@ public class Categories {
     @OneToMany(mappedBy = "categories")
     private Set<SubCategories> subCategories;
 
+    public Categories() {
+        super();
+        this.subCategories = new HashSet<>();
+    }
     /*CLOSERS,
     SPORTS,
     FURNITURE,

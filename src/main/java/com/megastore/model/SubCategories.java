@@ -1,6 +1,8 @@
 package com.megastore.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,15 +16,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
-@Data
+@Setter
+@Getter
 @Entity
 @Table(name = "subcategories", catalog = "public")
-public class SubCategories {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+public class SubCategories extends BaseEntity {
 
     @Column(name = "name")
     private String name;
@@ -39,7 +37,7 @@ public class SubCategories {
     private Categories categoryId;
 
     //Product
-    @OneToMany(mappedBy = "subcategories")
+    @OneToMany(mappedBy = "subCategories")
     private List<Product> products;
 
     /*

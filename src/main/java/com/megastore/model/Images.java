@@ -1,6 +1,8 @@
 package com.megastore.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,21 +15,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "images", catalog = "public")
-public class Images {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+public class Images extends BaseEntity {
 
     @Column(name = "path_url")
     private String pathImageURL;
 
-    //Product
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", referencedColumnName = "id")
-    private Product productId;
+    private Product product;
 }
