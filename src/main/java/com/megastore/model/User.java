@@ -1,13 +1,13 @@
 package com.megastore.model;
 
-import lombok.Data;
+import com.megastore.type.RoleType;
+
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 
-//@Data
-//@Entity
+
 //@Table(name="userprofile", catalog = "public")
 @Getter
 @Setter
