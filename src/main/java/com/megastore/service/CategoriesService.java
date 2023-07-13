@@ -1,31 +1,14 @@
 package com.megastore.service;
 
 import com.megastore.model.Categories;
-import com.megastore.repository.CategoriesRepository;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.Collection;
+import java.util.Optional;
 
-@Service
-@RequiredArgsConstructor
-public class CategoriesService {
+public interface CategoriesService {
+    Optional<Categories> findById(Long id);
 
-//    @Autowired
-    private CategoriesRepository categoriesRepository;
+    Collection<Categories> findAll();
 
-    @Transactional(readOnly = true)
-    public List<Categories> findAll(){
-        List<Categories> showAllCategories = categoriesRepository.findAll();
-        return showAllCategories;
-    }
 
-    @Transactional
-    public Categories saveCategory(Categories category) {
-        Categories savedCategory = categoriesRepository.saveAndFlush(category);
-        return savedCategory;
-    }
 }

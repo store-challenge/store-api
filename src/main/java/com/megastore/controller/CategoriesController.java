@@ -1,17 +1,12 @@
 package com.megastore.controller;
 
 import com.megastore.model.Categories;
-import com.megastore.service.CategoriesService;
+import com.megastore.service.impl.CategoriesServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -19,11 +14,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoriesController {
 
-    private final CategoriesService categoriesService;
+    private final CategoriesServiceImpl categoriesServiceImpl;
 
     @GetMapping("/list")
     public List<Categories> showCategories() {
-        return categoriesService.findAll();
+        return categoriesServiceImpl.findAll();
     }
 
 }

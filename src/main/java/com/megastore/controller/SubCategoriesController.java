@@ -1,7 +1,7 @@
 package com.megastore.controller;
 
 import com.megastore.model.SubCategories;
-import com.megastore.service.SubCategoriesService;
+import com.megastore.service.impl.SubCategoriesServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +14,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SubCategoriesController {
 
-    private final SubCategoriesService subCategoriesService;
+    private final SubCategoriesServiceImpl subCategoriesServiceImpl;
 
     @GetMapping("/list")
     public List<SubCategories> showSubCategories(){
-        return subCategoriesService.findAll();
+        return subCategoriesServiceImpl.findAll();
     }
 
 }

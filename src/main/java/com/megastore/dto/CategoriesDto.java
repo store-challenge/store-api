@@ -1,5 +1,4 @@
 package com.megastore.dto;
 
-public class ProductDto {
-
+public class CategoriesDto {
 }

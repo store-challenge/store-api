@@ -34,7 +34,7 @@ public class SubCategories extends BaseEntity {
     //Categories
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
-    private Categories categoryId;
+    private Categories categories;
 
     //Product
     @OneToMany(mappedBy = "subCategories")

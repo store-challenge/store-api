@@ -7,10 +7,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
-//@ComponentScan("com.megastore")
-//@EntityScan("com.megastore.model")
-//@EnableJpaRepositories("com.megastore")
+@SpringBootApplication
 public class MegaStoreApplication {
 
 	public static void main(String[] args) {
