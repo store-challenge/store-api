@@ -1,26 +1,14 @@
 package com.megastore.service;
 
+import com.megastore.model.Categories;
 import com.megastore.model.SubCategories;
-import com.megastore.repository.SubCategoriesRepository;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.Collection;
+import java.util.Optional;
 
-@Service
-@RequiredArgsConstructor
-public class SubCategoriesService {
+public interface SubCategoriesService {
+    Optional<SubCategories> findById(Long id);
 
+    Collection<SubCategories> findAll();
 
-//    @Autowired
-    private SubCategoriesRepository subCategoriesRepository;
-
-    @Transactional(readOnly = true)
-    public List<SubCategories> findAll(){
-        List<SubCategories> showAllSubCategories = subCategoriesRepository.findAll();
-        return showAllSubCategories;
-    }
 }
