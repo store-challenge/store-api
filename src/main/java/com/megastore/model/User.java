@@ -16,8 +16,6 @@ import javax.persistence.*;
 public class User extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String email;
-    @Column(nullable = false)
-    private String password;
     @Column()
     private String username;
     @Column(name = "phone_number")
