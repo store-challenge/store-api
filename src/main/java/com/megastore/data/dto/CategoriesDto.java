@@ -1,4 +1,4 @@
-package com.megastore.dto;
+package com.megastore.data.dto;
 
 public class CategoriesDto {
 }

@@ -1,7 +1,7 @@
 package com.megastore.facade.impl;
 
-import com.megastore.dto.ProductPDPDto;
-import com.megastore.dto.ProductPLPDto;
+import com.megastore.data.dto.ProductPDPDto;
+import com.megastore.data.dto.ProductPLPDto;
 import com.megastore.facade.ProductFacade;
 
 import java.util.Collection;

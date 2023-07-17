@@ -1,6 +1,6 @@
 package com.megastore.facade;
 
-import com.megastore.dto.SubCategoriesDto;
+import com.megastore.data.dto.SubCategoriesDto;
 
 import java.util.Collection;
 

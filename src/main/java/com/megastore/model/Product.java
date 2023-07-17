@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 @Getter
 @Setter
@@ -38,4 +39,10 @@ public class Product extends  BaseEntity{
     //Images
     @OneToMany(mappedBy = "product")
     private List<Images> images;
+
+    public Product(){
+        super();
+        this.price= BigDecimal.valueOf(0.0);
+        this.images=new ArrayList<>();
+    }
 }
