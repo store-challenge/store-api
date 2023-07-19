@@ -1,24 +1,30 @@
 package com.megastore.controller;
 
-import com.megastore.model.SubCategories;
-import com.megastore.service.impl.SubCategoriesServiceImpl;
-import lombok.RequiredArgsConstructor;
+import com.megastore.data.DataContainer;
+import com.megastore.data.dto.SubCategoriesDto;
+import com.megastore.facade.SubCategoriesFacade;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/api/v1/sub-category")
-@RequiredArgsConstructor
 public class SubCategoriesController {
 
-    private final SubCategoriesServiceImpl subCategoriesServiceImpl;
+    private final SubCategoriesFacade subCategoriesFacade;
+
+    public SubCategoriesController(SubCategoriesFacade subCategoriesFacade) {
+        this.subCategoriesFacade = subCategoriesFacade;
+    }
+
 
     @GetMapping("/list")
-    public List<SubCategories> showSubCategories(){
-        return subCategoriesServiceImpl.findAll();
+    public ResponseEntity<DataContainer<Collection<SubCategoriesDto>>> showSubCategories(){
+        return ResponseEntity.ok (new DataContainer<>(subCategoriesFacade.findAll()));
     }
 
 }

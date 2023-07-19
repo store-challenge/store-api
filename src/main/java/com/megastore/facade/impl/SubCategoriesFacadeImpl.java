@@ -1,13 +1,22 @@
 package com.megastore.facade.impl;
 
-import com.megastore.dto.SubCategoriesDto;
+import com.megastore.data.dto.SubCategoriesDto;
 import com.megastore.facade.SubCategoriesFacade;
+import com.megastore.service.SubCategoriesService;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-
+@Service
 public class SubCategoriesFacadeImpl implements SubCategoriesFacade {
+
+    private final SubCategoriesService subCategoriesService;
+
+    public SubCategoriesFacadeImpl(SubCategoriesService subCategoriesService) {
+        this.subCategoriesService = subCategoriesService;
+    }
+
     @Override
     public Collection<SubCategoriesDto> findAll() {
-        return null;
+        return subCategoriesService.findAll().stream().map(SubCategoriesDto::new).toList();
     }
 }
