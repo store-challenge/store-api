@@ -25,6 +25,7 @@ public class CategoriesDto {
         this.id = categories.getId();
         this.name = categories.getName();
         this.iconName = categories.getIconName();
+        this.pathUrl = categories.getPathURL();
         initSubcategories(categories);
     }
 
