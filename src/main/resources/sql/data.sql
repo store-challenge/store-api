@@ -3,6 +3,9 @@ insert into categories values (2, '2023-05-05','2023-05-05','SportsIcon', 'Sport
 insert into categories values (3, '2023-05-05','2023-05-05','FurnitureIcon', 'Furniture','http//amazon.com/3dfqw3441');
 insert into categories values (4, '2023-05-05','2023-05-05','BooksIcon', 'Books','http//amazon.com/3dfqw3445');
 insert into categories values (5, '2023-05-05','2023-05-05','PetsIcon', 'Pets','http//amazon.com/3dfqw3446');
+insert into categories values (6, '2023-05-05','2023-05-05','AppliancesIcon', 'Appliances','http//amazon.com/3dfqw3447');
+insert into categories values (7, '2023-05-05','2023-05-05','BuildingIcon', 'Building','http//amazon.com/3dfqw3448');
+insert into categories values (8, '2023-05-05','2023-05-05','BeautyIcon', 'Beauty','http//amazon.com/3dfqw3449');
 
 
 insert into subcategories values (1, '2023-05-05','2023-05-05', 'MaleIcon', 'Male','http//amazon.com/3dfqw3423',1);
