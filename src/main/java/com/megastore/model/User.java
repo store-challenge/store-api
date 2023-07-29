@@ -1,6 +1,5 @@
 package com.megastore.model;
 
-import com.megastore.type.RoleType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,9 +19,6 @@ public class User extends BaseEntity {
     private String username;
     @Column(name = "phone_number")
     private String phoneNumber;
-    @Column(name = "role_type", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private RoleType roleType;
     @Column(nullable = false)
     private Boolean enabled;
 
