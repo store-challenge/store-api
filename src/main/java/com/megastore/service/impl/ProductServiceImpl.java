@@ -22,8 +22,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Product> findHotProducts() {
-        return productRepository.findHotProducts();}
+    public List<Product> findHotProducts(int limit, long catId) {
+        return productRepository.findTopByIsHotProduct(limit, catId);}
 
     @Transactional(readOnly = true)
     @Override
