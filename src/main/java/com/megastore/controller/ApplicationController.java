@@ -11,15 +11,15 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/test")
 public class ApplicationController {
 
-    @GetMapping("/categories")
+    @GetMapping("/category")
     public String categories() {
         return new String("Hello categories!");
     }
-    @GetMapping("/subcategories")
+    @GetMapping("/sub-category")
     public String subcategories() {
         return new String("Hello subcategories!");
     }
-    @GetMapping("/products")
+    @GetMapping("/product")
     public String products() {
         return new String("Hello products!");
 
