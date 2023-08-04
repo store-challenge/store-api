@@ -5,6 +5,7 @@ import com.megastore.data.dto.SubCategoriesDto;
 import com.megastore.facade.SubCategoriesFacade;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/sub-category")
 public class SubCategoriesController {
 

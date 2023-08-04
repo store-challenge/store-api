@@ -39,9 +39,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .mvcMatchers("/api/v1/test/categories").permitAll()
-                .mvcMatchers("/api/v1/test/subcategories").authenticated()
-                .mvcMatchers("/api/v1/test/products").hasAuthority("SCOPE_read:products")
+                .mvcMatchers("/api/v1/test/category").permitAll()
+                .mvcMatchers("/api/v1/test/sub-category").authenticated()
+                .mvcMatchers("/api/v1/test/product").hasAuthority("SCOPE_read:product")
                 .and().cors()
                 .and().oauth2ResourceServer().jwt();
         return http.build();

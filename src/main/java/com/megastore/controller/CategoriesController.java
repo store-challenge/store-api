@@ -4,6 +4,7 @@ import com.megastore.data.DataContainer;
 import com.megastore.data.dto.CategoriesDto;
 import com.megastore.facade.CategoriesFacade;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/category")
 public class CategoriesController {
 
