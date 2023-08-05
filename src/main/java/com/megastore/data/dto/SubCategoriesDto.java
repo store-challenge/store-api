@@ -18,14 +18,13 @@ public class SubCategoriesDto {
     private Long id;
     private String name;
     private String iconName;
-    private String pathUrl;
+
     private List<ProductPLPDto> productList;
 
     public SubCategoriesDto(SubCategories subCategories){
         this.id= subCategories.getId();
         this.name =subCategories.getName();
         this.iconName = subCategories.getIconName();
-        this.pathUrl= subCategories.getPathURL();
         initProducts(subCategories);
     }
 

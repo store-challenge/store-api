@@ -28,9 +28,6 @@ public class SubCategories extends BaseEntity {
     @Column(name = "icon")
     private String iconName;
 
-    @Column(name = "path_url")
-    private String pathURL;
-
     //Categories
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
