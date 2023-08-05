@@ -23,9 +23,6 @@ public class Categories extends BaseEntity {
     @Column(name = "icon", nullable = false)
     private String iconName;
 
-    @Column(name = "path_url", nullable = false)
-    private String pathURL;  /* "/closers" */
-
     @OneToMany(mappedBy = "categories")
     private Set<SubCategories> subCategories;
 
