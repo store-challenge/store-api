@@ -28,8 +28,26 @@ public class Product extends  BaseEntity{
     @Column(name = "product_description")
     private String description;
 
-    @Column(name = "product_is_hot")
+    @Column(name = "product_hot")
     private Boolean isHotProduct;
+
+    @Column(name = "product_brand")
+    private String brand;
+
+    @Column(name = "product_made")
+    private String made;
+
+    @Column(name = "product_type")
+    private String type;
+
+    @Column(name = "product_material")
+    private String material;
+
+    @Column(name = "product_size")
+    private String size;
+
+    @Column(name = "product_quantity", nullable = false)
+    private Integer quantity;
 
     //SubCategories
     @ManyToOne(cascade = CascadeType.ALL)
