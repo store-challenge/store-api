@@ -20,7 +20,7 @@ public class Categories extends BaseEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "icon_name", nullable = false)
+    @Column(name = "icon", nullable = false)
     private String iconName;
 
     @Column(name = "path_url", nullable = false)
