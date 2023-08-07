@@ -18,14 +18,12 @@ public class CategoriesDto {
     private String name;
     private String iconName;
 
-    private String pathUrl;
     private Set<SubCategoriesDto> subCategoriesSet;
 
     public CategoriesDto(Categories categories) {
         this.id = categories.getId();
         this.name = categories.getName();
         this.iconName = categories.getIconName();
-        this.pathUrl = categories.getPathURL();
         initSubcategories(categories);
     }
 
