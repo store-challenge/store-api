@@ -25,11 +25,8 @@ public class SubCategories extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "icon_name")
+    @Column(name = "icon")
     private String iconName;
-
-    @Column(name = "path_url")
-    private String pathURL;
 
     //Categories
     @ManyToOne(cascade = CascadeType.ALL)
@@ -37,7 +34,7 @@ public class SubCategories extends BaseEntity {
     private Categories categories;
 
     //Product
-    @OneToMany(mappedBy = "subCategories")
+    @OneToMany(mappedBy = "subcategories")
     private List<Product> products;
 
     /*
