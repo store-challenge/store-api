@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -34,7 +35,7 @@ public class SubCategories extends BaseEntity {
     private Categories categories;
 
     //Product
-    @OneToMany(mappedBy = "subcategories")
+    @OneToMany(mappedBy = "subCategories")
     private List<Product> products;
 
     /*

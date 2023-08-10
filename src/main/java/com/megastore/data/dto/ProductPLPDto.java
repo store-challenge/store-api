@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 
 @Getter
 @Setter
@@ -15,19 +14,25 @@ public class ProductPLPDto {
 
 
     private Long id;
-    private String description;
-    private boolean isHot;
     private String title;
     private BigDecimal price;
+    private String description;
+    private boolean isHot;
+    private String productBrand;
+    private Integer productAvailable;
+    private Integer productArticle;
     private Long subcategoryId;
 
-    public ProductPLPDto(Product product){
-        this.id= product.getId();
-        this.description= product.getDescription();
-        this.isHot = product.getIsHotProduct();
+    public ProductPLPDto(Product product) {
+        this.id = product.getId();
         this.title = product.getName();
         this.price = product.getPrice();
-        this.subcategoryId=product.getSubCategories().getId();
+        this.description = product.getDescription();
+        this.isHot = product.getIsHotProduct();
+        this.productBrand = product.getProductBrand();
+        this.productAvailable = product.getProductAvailable();
+        this.productArticle = product.getProductArticle();
+        this.subcategoryId = product.getSubCategories().getId();
 
     }
 }
