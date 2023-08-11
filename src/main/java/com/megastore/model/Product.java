@@ -1,6 +1,5 @@
 package com.megastore.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,22 +13,33 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
 @Getter
 @Setter
 @Entity
 @Table(name = "product", catalog = "public")
-public class Product extends  BaseEntity{
-    @Column(name="product_title")
+public class Product extends BaseEntity {
+
+    @Column(name = "product_title", nullable = false)
     private String name;
 
-    @Column(name = "product_price", columnDefinition = "decimal (10,2)")
+    @Column(name = "product_price", columnDefinition = "decimal (10,2)", nullable = false)
     private BigDecimal price;
 
-    @Column(name = "product_description")
+    @Column(name = "product_description", nullable = false)
     private String description;
 
-    @Column(name = "product_is_hot")
+    @Column(name = "product_hot", nullable = false)
     private Boolean isHotProduct;
+
+    @Column(name = "product_brand", nullable = false)
+    private String productBrand;
+
+    @Column(name = "product_available", nullable = false)
+    private Integer productAvailable;
+
+    @Column(name = "product_article", nullable = false)
+    private Integer productArticle;
 
     //SubCategories
     @ManyToOne(cascade = CascadeType.ALL)
@@ -40,9 +50,9 @@ public class Product extends  BaseEntity{
     @OneToMany(mappedBy = "product")
     private List<Images> images;
 
-    public Product(){
+    public Product() {
         super();
-        this.price= BigDecimal.valueOf(0.0);
-        this.images=new ArrayList<>();
+        this.price = BigDecimal.valueOf(0.0);
+        this.images = new ArrayList<>();
     }
 }
