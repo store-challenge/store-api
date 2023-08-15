@@ -22,7 +22,7 @@ public class ProductHotDto {
     private Long subcategoryId;
     private Long categoryId;
     private String name;
-    private String iconName;
+    private String icon;
 
 
     public ProductHotDto(Product product) {
@@ -37,6 +37,6 @@ public class ProductHotDto {
         this.subcategoryId = product.getSubCategories().getId();
         this.categoryId = product.getSubCategories().getCategories().getId();
         this.name = product.getSubCategories().getCategories().getName();
-        this.iconName = product.getSubCategories().getCategories().getIconName();
+        this.icon = product.getSubCategories().getCategories().getIconName();
     }
 }

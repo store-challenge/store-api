@@ -10,8 +10,10 @@ import java.util.List;
 public interface ProductFacade {
     ProductPDPDto findById(Long id);
 
-    Collection<ProductPLPDto> findAll();
+    Collection<ProductPLPDto> findAll(int limit);
 
     List<ProductHotDto> findHotProducts(int limit, long catId);
-    }
+
+
+}
 

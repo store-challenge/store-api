@@ -23,7 +23,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(readOnly = true)
     public List<Product> findHotProducts(int limit, long catId) {
-        return productRepository.findTopByIsHotProduct(limit, catId);}
+        return productRepository.findTopByIsHotProduct(limit, catId);
+    }
 
     @Transactional(readOnly = true)
     @Override
@@ -33,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional(readOnly = true)
     @Override
-    public Collection<Product> findAll() {
-        return productRepository.findAll();
+    public Collection<Product> findAll(int limit) {
+        return productRepository.findAll(limit);
     }
 }

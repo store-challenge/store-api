@@ -17,14 +17,14 @@ public class SubCategoriesDto {
 
     private Long id;
     private String name;
-    private String iconName;
+    private String icon;
 
     private List<ProductPLPDto> productList;
 
     public SubCategoriesDto(SubCategories subCategories){
         this.id= subCategories.getId();
         this.name =subCategories.getName();
-        this.iconName = subCategories.getIconName();
+        this.icon = subCategories.getIconName();
         initProducts(subCategories);
     }
 

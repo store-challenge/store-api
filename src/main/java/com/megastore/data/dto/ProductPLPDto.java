@@ -16,7 +16,6 @@ public class ProductPLPDto {
     private Long id;
     private String title;
     private BigDecimal price;
-    private String description;
     private boolean isHot;
     private String productBrand;
     private Integer productAvailable;
@@ -27,7 +26,6 @@ public class ProductPLPDto {
         this.id = product.getId();
         this.title = product.getName();
         this.price = product.getPrice();
-        this.description = product.getDescription();
         this.isHot = product.getIsHotProduct();
         this.productBrand = product.getProductBrand();
         this.productAvailable = product.getProductAvailable();

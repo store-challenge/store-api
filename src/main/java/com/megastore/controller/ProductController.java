@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,12 +30,10 @@ public class ProductController {
 
     @GetMapping("/hot")
     public ResponseEntity<List<ProductHotDto>> getHotProducts(@RequestParam(defaultValue = "4") int limit, @RequestParam(defaultValue = "1") long catId) {
-        return ResponseEntity.ok(new ArrayList<>(productFacade.findHotProducts(limit,catId)));
-
+        return ResponseEntity.ok(new ArrayList<>(productFacade.findHotProducts(limit, catId)));
     }
-//    @GetMapping("/list")
-//    public List<Product> showProducts() {
-//        List<Product> searchedProducts = productServiceImpl.findAll();
-//        return searchedProducts;
-//    }
+    @GetMapping("/list")
+    public ResponseEntity<Collection<ProductPLPDto>> getAllProducts(@RequestParam(defaultValue = "9") int limit) {
+        return ResponseEntity.ok(new ArrayList<>(productFacade.findAll(limit)));
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductFacadeImpl implements ProductFacade {
@@ -26,8 +27,8 @@ public class ProductFacadeImpl implements ProductFacade {
     }
 
     @Override
-    public Collection<ProductPLPDto> findAll() {
-        return null;
+    public Collection<ProductPLPDto> findAll(int limit) {
+        return productService.findAll(limit).stream().map(ProductPLPDto::new).toList();
     }
 
     @Override
