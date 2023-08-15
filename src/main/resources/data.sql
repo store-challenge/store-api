@@ -193,3 +193,19 @@ insert into images values (default,'2022-02-24','2023-08-05', 'https://firebases
 insert into images values (default,'2022-02-24','2023-08-05','https://firebasestorage.googleapis.com/v0/b/megastore-10684.appspot.com/o/image_megastore%2F707070_7070.png?alt=media&token=4f0c4007-5439-430f-827e-7527ea950a1f' ,70 );
 insert into images values (default,'2022-02-24','2023-08-05', 'https://firebasestorage.googleapis.com/v0/b/megastore-10684.appspot.com/o/image_megastore%2F717171_7171.png?alt=media&token=0060cce6-6ff2-461f-8f53-e20a58b894f0',71 );
 insert into images values (default,'2022-02-24','2023-08-05','https://firebasestorage.googleapis.com/v0/b/megastore-10684.appspot.com/o/image_megastore%2F727272_7272.png?alt=media&token=8ee07295-bd8d-4046-89c0-fadd05fd6ede' ,72 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
