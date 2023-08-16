@@ -37,4 +37,28 @@ public class ProductServiceImpl implements ProductService {
     public Collection<Product> findAll(int limit) {
         return productRepository.findAll(limit);
     }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Collection<Product> findAllSortedByNameDESC(int limit) {
+        return productRepository.findAllSortedByNameDESC(limit);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Collection<Product> findAllSortedByNameASC(int limit) {
+        return productRepository.findAllSortedByNameASC(limit);
+    }
+    @Transactional(readOnly = true)
+    @Override
+    public Collection<Product> findAllSortedByPriceDESC(int limit) {
+        return productRepository.findAllSortedByPriceDESC(limit);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Collection<Product> findAllSortedByPriceASC(int limit) {
+        return productRepository.findAllSortedByPriceASC(limit);
+    }
+
 }

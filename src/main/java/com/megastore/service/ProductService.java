@@ -14,9 +14,10 @@ public interface ProductService {
     Optional<Product> findById(Long id);
 
     Collection<Product> findAll(int limit);
-
+    Collection<Product> findAllSortedByNameDESC(int limit);
+    Collection<Product> findAllSortedByNameASC(int limit);
+    Collection<Product> findAllSortedByPriceDESC(int limit);
+    Collection<Product> findAllSortedByPriceASC(int limit);
     List<Product> findHotProducts(int limit, long catId);
-
-//    public Optional<ProductPDPDto> productSearch(String name, Long article, String brand, Double priceFrom, Double priceTo, Integer available, Integer limit);
 
 }

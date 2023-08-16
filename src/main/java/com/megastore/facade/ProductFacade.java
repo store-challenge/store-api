@@ -12,6 +12,11 @@ public interface ProductFacade {
 
     Collection<ProductPLPDto> findAll(int limit);
 
+    Collection<ProductPLPDto> findAllSortedByNameDESC(int limit);
+    Collection<ProductPLPDto> findAllSortedByNameASC(int limit);
+    Collection<ProductPLPDto> findAllSortedByPriceDESC(int limit);
+    Collection<ProductPLPDto> findAllSortedByPriceASC(int limit);
+
     List<ProductHotDto> findHotProducts(int limit, long catId);
 
 

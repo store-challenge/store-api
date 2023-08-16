@@ -28,4 +28,36 @@ public interface ProductRepository extends BaseRepository<Product> {
             "LIMIT :limit ",
             nativeQuery = true)
     Collection<Product> findAll(int limit);
+
+    @Query(value = "SELECT * " +
+            "FROM product p " +
+            "JOIN images img ON img.product_id = p.id " +
+            "ORDER BY p.product_title DESC, p.created DESC " +
+            "LIMIT :limit ",
+            nativeQuery = true)
+    Collection<Product> findAllSortedByNameDESC(int limit);
+
+    @Query(value = "SELECT * " +
+            "FROM product p " +
+            "JOIN images img ON img.product_id = p.id " +
+            "ORDER BY p.product_title ASC, p.created DESC " +
+            "LIMIT :limit ",
+            nativeQuery = true)
+    Collection<Product> findAllSortedByNameASC(int limit);
+    @Query(value = "SELECT * " +
+            "FROM product p " +
+            "JOIN images img ON img.product_id = p.id " +
+            "ORDER BY p.product_price DESC, p.created DESC " +
+            "LIMIT :limit ",
+            nativeQuery = true)
+    Collection<Product> findAllSortedByPriceDESC(int limit);
+
+    @Query(value = "SELECT * " +
+            "FROM product p " +
+            "JOIN images img ON img.product_id = p.id " +
+            "ORDER BY p.product_price ASC, p.created DESC " +
+            "LIMIT :limit ",
+            nativeQuery = true)
+    Collection<Product> findAllSortedByPriceASC(int limit);
+
 }

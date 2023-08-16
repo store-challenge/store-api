@@ -30,6 +30,22 @@ public class ProductFacadeImpl implements ProductFacade {
     public Collection<ProductPLPDto> findAll(int limit) {
         return productService.findAll(limit).stream().map(ProductPLPDto::new).toList();
     }
+    @Override
+    public Collection<ProductPLPDto> findAllSortedByNameDESC(int limit) {
+        return productService.findAllSortedByNameDESC(limit).stream().map(ProductPLPDto::new).toList();
+    }
+    @Override
+    public Collection<ProductPLPDto> findAllSortedByNameASC(int limit) {
+        return productService.findAllSortedByNameASC(limit).stream().map(ProductPLPDto::new).toList();
+    }
+ @Override
+    public Collection<ProductPLPDto> findAllSortedByPriceDESC(int limit) {
+        return productService.findAllSortedByPriceDESC(limit).stream().map(ProductPLPDto::new).toList();
+    }
+    @Override
+    public Collection<ProductPLPDto> findAllSortedByPriceASC(int limit) {
+        return productService.findAllSortedByPriceASC(limit).stream().map(ProductPLPDto::new).toList();
+    }
 
     @Override
     public List<ProductHotDto> findHotProducts(int limit, long catId) {

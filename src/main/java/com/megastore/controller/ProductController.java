@@ -32,8 +32,24 @@ public class ProductController {
     public ResponseEntity<List<ProductHotDto>> getHotProducts(@RequestParam(defaultValue = "4") int limit, @RequestParam(defaultValue = "1") long catId) {
         return ResponseEntity.ok(new ArrayList<>(productFacade.findHotProducts(limit, catId)));
     }
+
     @GetMapping("/list")
-    public ResponseEntity<Collection<ProductPLPDto>> getAllProducts(@RequestParam(defaultValue = "9") int limit) {
-        return ResponseEntity.ok(new ArrayList<>(productFacade.findAll(limit)));
+    public ResponseEntity<Collection<ProductPLPDto>> getAllProducts(
+            @RequestParam(defaultValue = "9") int limit,
+            @RequestParam(defaultValue = "false") Boolean sortedByNameDESC,
+            @RequestParam(defaultValue = "false") Boolean sortedByPriceDESC
+    ) {
+        Collection<ProductPLPDto> products = new ArrayList<>(productFacade.findAll(limit));
+        if (sortedByNameDESC) {
+            products = new ArrayList<>(productFacade.findAllSortedByNameDESC(limit));
+        } else if (!sortedByNameDESC) {
+            products = new ArrayList<>(productFacade.findAllSortedByNameASC(limit));
+        } else if (sortedByPriceDESC) {
+            products = new ArrayList<>(productFacade.findAllSortedByPriceDESC(limit));
+        } else {
+            products = new ArrayList<>(productFacade.findAllSortedByPriceASC(limit));
+        }
+        return ResponseEntity.ok(products);
     }
+
 }
