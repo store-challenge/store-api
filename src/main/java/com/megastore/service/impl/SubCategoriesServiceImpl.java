@@ -26,7 +26,7 @@ public class SubCategoriesServiceImpl implements SubCategoriesService {
     }
     @Override
     @Transactional(readOnly = true)
-    public List<SubCategories> findAll(){
-        return subCategoriesRepository.findAll();
+    public List<SubCategories> findSubCategoriesByCategories_Id(long catId){
+        return subCategoriesRepository.findSubCategoriesByCategories_Id(catId);
     }
 }
