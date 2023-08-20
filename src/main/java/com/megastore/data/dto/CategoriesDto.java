@@ -12,12 +12,12 @@ import lombok.Setter;
 public class CategoriesDto {
     private Long id;
     private String name;
-    private String iconName;
+    private String icon;
 
     public CategoriesDto(Categories categories) {
         this.id = categories.getId();
         this.name = categories.getName();
-        this.iconName = categories.getIconName();
+        this.icon = categories.getIconName();
 
     }
 

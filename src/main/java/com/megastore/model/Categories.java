@@ -30,12 +30,4 @@ public class Categories extends BaseEntity {
         super();
         this.subCategories = new HashSet<>();
     }
-    /*CLOSERS,
-    SPORTS,
-    FURNITURE,
-    APPLIANCES,
-    BOOKS,
-    BEAUTY,
-    BUILDING,
-    PETS;*/
 }

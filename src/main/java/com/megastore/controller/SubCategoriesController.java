@@ -5,10 +5,7 @@ import com.megastore.data.dto.SubCategoriesDto;
 import com.megastore.facade.SubCategoriesFacade;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -25,8 +22,8 @@ public class SubCategoriesController {
 
 
     @GetMapping("/list")
-    public ResponseEntity<DataContainer<Collection<SubCategoriesDto>>> showSubCategories(){
-        return ResponseEntity.ok (new DataContainer<>(subCategoriesFacade.findAll()));
+    public ResponseEntity<DataContainer<Collection<SubCategoriesDto>>> showSubCategories(@RequestParam(defaultValue = "1") long catId){
+        return ResponseEntity.ok (new DataContainer<>(subCategoriesFacade.findSubCategoriesByCategories_Id(catId)));
     }
 
 }
