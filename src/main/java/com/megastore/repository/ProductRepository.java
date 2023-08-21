@@ -1,14 +1,11 @@
 package com.megastore.repository;
 
 import com.megastore.model.Product;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends BaseRepository<Product> {
@@ -23,41 +20,67 @@ public interface ProductRepository extends BaseRepository<Product> {
 
     @Query(value = "SELECT * " +
             "FROM product p " +
+            "JOIN subcategories s ON p.subcategory_id = s.id " +
+            "JOIN categories c ON s.category_id = c.id " +
             "JOIN images img ON img.product_id = p.id " +
-            "ORDER BY p.created DESC " +
+            "WHERE s.id = :subcategoryId " +
+            "AND p.product_price BETWEEN :priceFrom AND :priceTo " +
+            "AND p.product_brand = :brand " +
+            "ORDER BY p.updated DESC " +
             "LIMIT :limit ",
             nativeQuery = true)
-    Collection<Product> findAll(int limit);
+    Collection<Product> findAll(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand);
 
     @Query(value = "SELECT * " +
             "FROM product p " +
+            "JOIN subcategories s ON p.subcategory_id = s.id " +
+            "JOIN categories c ON s.category_id = c.id " +
             "JOIN images img ON img.product_id = p.id " +
-            "ORDER BY p.product_title DESC, p.created DESC " +
+            "WHERE s.id = :subcategoryId " +
+            "AND p.product_price BETWEEN :priceFrom AND :priceTo " +
+            "AND p.product_brand = :brand " +
+            "ORDER BY p.product_title DESC, p.updated DESC " +
             "LIMIT :limit ",
             nativeQuery = true)
-    Collection<Product> findAllSortedByNameDESC(int limit);
+    Collection<Product> findAllSortedByNameDESC(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand);
 
     @Query(value = "SELECT * " +
             "FROM product p " +
+            "JOIN subcategories s ON p.subcategory_id = s.id " +
+            "JOIN categories c ON s.category_id = c.id " +
             "JOIN images img ON img.product_id = p.id " +
-            "ORDER BY p.product_title ASC, p.created DESC " +
+            "WHERE s.id = :subcategoryId " +
+            "AND p.product_price BETWEEN :priceFrom AND :priceTo " +
+            "AND p.product_brand = :brand " +
+            "ORDER BY p.product_title ASC, p.updated DESC " +
             "LIMIT :limit ",
             nativeQuery = true)
-    Collection<Product> findAllSortedByNameASC(int limit);
-    @Query(value = "SELECT * " +
-            "FROM product p " +
-            "JOIN images img ON img.product_id = p.id " +
-            "ORDER BY p.product_price DESC, p.created DESC " +
-            "LIMIT :limit ",
-            nativeQuery = true)
-    Collection<Product> findAllSortedByPriceDESC(int limit);
+    Collection<Product> findAllSortedByNameASC(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand);
 
     @Query(value = "SELECT * " +
             "FROM product p " +
+            "JOIN subcategories s ON p.subcategory_id = s.id " +
+            "JOIN categories c ON s.category_id = c.id " +
             "JOIN images img ON img.product_id = p.id " +
-            "ORDER BY p.product_price ASC, p.created DESC " +
+            "WHERE s.id = :subcategoryId " +
+            "AND p.product_price BETWEEN :priceFrom AND :priceTo " +
+            "AND p.product_brand = :brand " +
+            "ORDER BY p.product_price DESC, p.updated DESC " +
             "LIMIT :limit ",
             nativeQuery = true)
-    Collection<Product> findAllSortedByPriceASC(int limit);
+    Collection<Product> findAllSortedByPriceDESC(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand);
+
+    @Query(value = "SELECT * " +
+            "FROM product p " +
+            "JOIN subcategories s ON p.subcategory_id = s.id " +
+            "JOIN categories c ON s.category_id = c.id " +
+            "JOIN images img ON img.product_id = p.id " +
+            "WHERE s.id = :subcategoryId " +
+            "AND p.product_price BETWEEN :priceFrom AND :priceTo " +
+            "AND p.product_brand = :brand " +
+            "ORDER BY p.product_price ASC, p.updated DESC " +
+            "LIMIT :limit ",
+            nativeQuery = true)
+    Collection<Product> findAllSortedByPriceASC(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand);
 
 }

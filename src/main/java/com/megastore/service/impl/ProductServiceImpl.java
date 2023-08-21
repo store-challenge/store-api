@@ -34,31 +34,32 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional(readOnly = true)
     @Override
-    public Collection<Product> findAll(int limit) {
-        return productRepository.findAll(limit);
+    public Collection<Product> findAll(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand) {
+        return productRepository.findAll(limit, subcategoryId, priceFrom, priceTo, brand);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Collection<Product> findAllSortedByNameDESC(int limit) {
-        return productRepository.findAllSortedByNameDESC(limit);
+    public Collection<Product> findAllSortedByNameDESC(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand) {
+        return productRepository.findAllSortedByNameDESC(limit, subcategoryId, priceFrom, priceTo, brand);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Collection<Product> findAllSortedByNameASC(int limit) {
-        return productRepository.findAllSortedByNameASC(limit);
-    }
-    @Transactional(readOnly = true)
-    @Override
-    public Collection<Product> findAllSortedByPriceDESC(int limit) {
-        return productRepository.findAllSortedByPriceDESC(limit);
+    public Collection<Product> findAllSortedByNameASC(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand) {
+        return productRepository.findAllSortedByNameASC(limit, subcategoryId, priceFrom, priceTo, brand);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Collection<Product> findAllSortedByPriceASC(int limit) {
-        return productRepository.findAllSortedByPriceASC(limit);
+    public Collection<Product> findAllSortedByPriceDESC(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand) {
+        return productRepository.findAllSortedByPriceDESC(limit, subcategoryId, priceFrom, priceTo, brand);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Collection<Product> findAllSortedByPriceASC(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand) {
+        return productRepository.findAllSortedByPriceASC(limit, subcategoryId, priceFrom, priceTo, brand);
     }
 
 }

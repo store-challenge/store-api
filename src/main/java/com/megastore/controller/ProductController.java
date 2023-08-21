@@ -1,5 +1,6 @@
 package com.megastore.controller;
 
+import com.megastore.constans.Sorting;
 import com.megastore.data.dto.ProductHotDto;
 import com.megastore.data.dto.ProductPLPDto;
 import com.megastore.facade.ProductFacade;
@@ -36,18 +37,23 @@ public class ProductController {
     @GetMapping("/list")
     public ResponseEntity<Collection<ProductPLPDto>> getAllProducts(
             @RequestParam(defaultValue = "9") int limit,
-            @RequestParam(defaultValue = "false") Boolean sortedByNameDESC,
-            @RequestParam(defaultValue = "false") Boolean sortedByPriceDESC
+            @RequestParam(defaultValue = "1") long subcategoryId,
+            @RequestParam(defaultValue = "UPDATED") Sorting sort,
+            @RequestParam(defaultValue = "0.00") Double priceFrom,
+            @RequestParam(defaultValue = "1000000.00") Double priceTo,
+            @RequestParam(defaultValue = "") String brand
     ) {
-        Collection<ProductPLPDto> products = new ArrayList<>(productFacade.findAll(limit));
-        if (sortedByNameDESC) {
-            products = new ArrayList<>(productFacade.findAllSortedByNameDESC(limit));
-        } else if (!sortedByNameDESC) {
-            products = new ArrayList<>(productFacade.findAllSortedByNameASC(limit));
-        } else if (sortedByPriceDESC) {
-            products = new ArrayList<>(productFacade.findAllSortedByPriceDESC(limit));
+        Collection<ProductPLPDto> products;
+        if ((sort.toString()).equals("ALPHABETIC")) {
+            products = new ArrayList<>(productFacade.findAllSortedByNameASC(limit, subcategoryId, priceFrom, priceTo, brand));
+        } else if ((sort.toString()).equals("REVERSED")) {
+            products = new ArrayList<>(productFacade.findAllSortedByNameDESC(limit, subcategoryId, priceFrom, priceTo, brand));
+        } else if ((sort.toString()).equals("CHEAP")) {
+            products = new ArrayList<>(productFacade.findAllSortedByPriceASC(limit, subcategoryId, priceFrom, priceTo, brand));
+        } else if ((sort.toString()).equals("EXPENSIVE")) {
+            products = new ArrayList<>(productFacade.findAllSortedByPriceDESC(limit, subcategoryId, priceFrom, priceTo, brand));
         } else {
-            products = new ArrayList<>(productFacade.findAllSortedByPriceASC(limit));
+            products = new ArrayList<>(productFacade.findAll(limit, subcategoryId, priceFrom, priceTo, brand));
         }
         return ResponseEntity.ok(products);
     }

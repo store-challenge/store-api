@@ -27,24 +27,28 @@ public class ProductFacadeImpl implements ProductFacade {
     }
 
     @Override
-    public Collection<ProductPLPDto> findAll(int limit) {
-        return productService.findAll(limit).stream().map(ProductPLPDto::new).toList();
+    public Collection<ProductPLPDto> findAll(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand) {
+        return productService.findAll(limit, subcategoryId, priceFrom, priceTo, brand).stream().map(ProductPLPDto::new).toList();
     }
+
     @Override
-    public Collection<ProductPLPDto> findAllSortedByNameDESC(int limit) {
-        return productService.findAllSortedByNameDESC(limit).stream().map(ProductPLPDto::new).toList();
+    public Collection<ProductPLPDto> findAllSortedByNameDESC(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand) {
+        return productService.findAllSortedByNameDESC(limit, subcategoryId, priceFrom, priceTo, brand).stream().map(ProductPLPDto::new).toList();
     }
+
     @Override
-    public Collection<ProductPLPDto> findAllSortedByNameASC(int limit) {
-        return productService.findAllSortedByNameASC(limit).stream().map(ProductPLPDto::new).toList();
+    public Collection<ProductPLPDto> findAllSortedByNameASC(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand) {
+        return productService.findAllSortedByNameASC(limit, subcategoryId, priceFrom, priceTo, brand).stream().map(ProductPLPDto::new).toList();
     }
- @Override
-    public Collection<ProductPLPDto> findAllSortedByPriceDESC(int limit) {
-        return productService.findAllSortedByPriceDESC(limit).stream().map(ProductPLPDto::new).toList();
-    }
+
     @Override
-    public Collection<ProductPLPDto> findAllSortedByPriceASC(int limit) {
-        return productService.findAllSortedByPriceASC(limit).stream().map(ProductPLPDto::new).toList();
+    public Collection<ProductPLPDto> findAllSortedByPriceDESC(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand) {
+        return productService.findAllSortedByPriceDESC(limit, subcategoryId, priceFrom, priceTo, brand).stream().map(ProductPLPDto::new).toList();
+    }
+
+    @Override
+    public Collection<ProductPLPDto> findAllSortedByPriceASC(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand) {
+        return productService.findAllSortedByPriceASC(limit, subcategoryId, priceFrom, priceTo, brand).stream().map(ProductPLPDto::new).toList();
     }
 
     @Override
