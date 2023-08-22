@@ -38,15 +38,4 @@ public class SubCategories extends BaseEntity {
     @OneToMany(mappedBy = "subCategories")
     private List<Product> products;
 
-    /*
-    MALE,
-    FEMALE,
-    KIDS,
-    WINTER,
-    SUMMER,
-    HOLE,
-    BEDROOM,
-    BATHROOM,
-    KITCHEN...
-    */
 }

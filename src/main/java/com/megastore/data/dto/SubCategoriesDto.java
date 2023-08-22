@@ -18,21 +18,17 @@ public class SubCategoriesDto {
     private Long id;
     private String name;
     private String icon;
+    private long catId;
+    private String catIdName;
 
-    private List<ProductPLPDto> productList;
+
 
     public SubCategoriesDto(SubCategories subCategories){
         this.id= subCategories.getId();
         this.name =subCategories.getName();
         this.icon = subCategories.getIconName();
-        initProducts(subCategories);
-    }
-
-    private void initProducts(SubCategories subCategories){
-        List<Product> products = subCategories.getProducts();
-        if(CollectionUtils.isNotEmpty(products)){
-            this.productList= products.stream().map(ProductPLPDto::new).collect(Collectors.toList());
-        }
+        this.catId=subCategories.getCategories().getId();
+        this.catIdName =subCategories.getCategories().getName();
     }
 }
 

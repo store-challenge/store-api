@@ -4,6 +4,8 @@ import com.megastore.model.Product;
 import com.megastore.repository.ProductRepository;
 import com.megastore.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,8 +25,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(readOnly = true)
     public List<Product> findHotProducts(int limit, long catId) {
-        return productRepository.findTopByIsHotProduct(limit, catId);
-    }
+        Pageable pageable = PageRequest.of(0, limit);
+        return productRepository.findTopByIsHotProduct(pageable, catId);}
 
     @Transactional(readOnly = true)
     @Override
@@ -61,5 +63,4 @@ public class ProductServiceImpl implements ProductService {
     public Collection<Product> findAllSortedByPriceASC(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand) {
         return productRepository.findAllSortedByPriceASC(limit, subcategoryId, priceFrom, priceTo, brand);
     }
-
 }
