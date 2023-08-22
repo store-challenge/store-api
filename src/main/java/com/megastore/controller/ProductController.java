@@ -4,7 +4,6 @@ import com.megastore.constans.Sorting;
 import com.megastore.data.dto.ProductHotDto;
 import com.megastore.data.dto.ProductPLPDto;
 import com.megastore.facade.ProductFacade;
-import com.megastore.model.Product;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*")
