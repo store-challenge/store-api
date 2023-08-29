@@ -3,7 +3,6 @@ package com.megastore.service.impl;
 import com.megastore.model.Product;
 import com.megastore.repository.ProductRepository;
 import com.megastore.service.ProductService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,7 +25,8 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(readOnly = true)
     public List<Product> findHotProducts(int limit, long catId) {
         Pageable pageable = PageRequest.of(0, limit);
-        return productRepository.findTopByIsHotProduct(pageable, catId);}
+        return productRepository.findTopByIsHotProduct(pageable, catId);
+    }
 
     @Transactional(readOnly = true)
     @Override
@@ -36,31 +36,20 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional(readOnly = true)
     @Override
-    public Collection<Product> findAll(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand) {
-        return productRepository.findAll(limit, subcategoryId, priceFrom, priceTo, brand);
+    public Collection<Product> findAll(long subcategoryId,
+                                       Double priceFrom,
+                                       Double priceTo,
+                                       String brand,
+                                       String sortBy,
+                                       String orderBy,
+                                       int limit) {
+        return productRepository.findAll(subcategoryId,
+                priceFrom,
+                priceTo,
+                brand,
+                sortBy,
+                orderBy,
+                limit);
     }
 
-    @Transactional(readOnly = true)
-    @Override
-    public Collection<Product> findAllSortedByNameDESC(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand) {
-        return productRepository.findAllSortedByNameDESC(limit, subcategoryId, priceFrom, priceTo, brand);
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public Collection<Product> findAllSortedByNameASC(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand) {
-        return productRepository.findAllSortedByNameASC(limit, subcategoryId, priceFrom, priceTo, brand);
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public Collection<Product> findAllSortedByPriceDESC(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand) {
-        return productRepository.findAllSortedByPriceDESC(limit, subcategoryId, priceFrom, priceTo, brand);
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public Collection<Product> findAllSortedByPriceASC(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand) {
-        return productRepository.findAllSortedByPriceASC(limit, subcategoryId, priceFrom, priceTo, brand);
-    }
 }

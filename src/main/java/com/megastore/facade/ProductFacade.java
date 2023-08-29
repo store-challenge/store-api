@@ -10,15 +10,13 @@ import java.util.List;
 public interface ProductFacade {
     ProductPDPDto findById(Long id);
 
-    Collection<ProductPLPDto> findAll(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand);
-
-    Collection<ProductPLPDto> findAllSortedByNameDESC(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand);
-
-    Collection<ProductPLPDto> findAllSortedByNameASC(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand);
-
-    Collection<ProductPLPDto> findAllSortedByPriceDESC(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand);
-
-    Collection<ProductPLPDto> findAllSortedByPriceASC(int limit, long subcategoryId, Double priceFrom, Double priceTo, String brand);
+    Collection<ProductPLPDto> findAll(long subcategoryId,
+                                      Double priceFrom,
+                                      Double priceTo,
+                                      String brand,
+                                      String sortBy,
+                                      String orderBy,
+                                      int limit);
 
     List<ProductHotDto> findHotProducts(int limit, long catId);
 
