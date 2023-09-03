@@ -18,7 +18,7 @@ public class SubCategoriesDto {
     private Long id;
     private String name;
     private String icon;
-    private long catId;
+    private long categoryId;
     private String catIdName;
 
 
@@ -27,7 +27,7 @@ public class SubCategoriesDto {
         this.id= subCategories.getId();
         this.name =subCategories.getName();
         this.icon = subCategories.getIconName();
-        this.catId=subCategories.getCategories().getId();
+        this.categoryId=subCategories.getCategories().getId();
         this.catIdName =subCategories.getCategories().getName();
     }
 }

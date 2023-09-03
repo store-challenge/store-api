@@ -10,6 +10,6 @@ import java.util.Optional;
 public interface SubCategoriesService {
     Optional<SubCategories> findById(Long id);
 
-    List<SubCategories> findSubCategoriesByCategories_Id(long catId);
+    List<SubCategories> findSubCategoriesByCategories_Id(long categoryId);
 
 }

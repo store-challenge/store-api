@@ -28,6 +28,12 @@ public class ProductServiceImpl implements ProductService {
         Pageable pageable = PageRequest.of(0, limit);
         return productRepository.findTopByIsHotProduct(pageable, catId);}
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<Product> findRandomHotProducts(int limit) {
+        return productRepository.findRandomHotProducts(limit);
+    }
+
     @Transactional(readOnly = true)
     @Override
     public Optional<Product> findById(Long id) {
