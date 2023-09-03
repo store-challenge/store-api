@@ -22,8 +22,8 @@ public class SubCategoriesController {
 
 
     @GetMapping("/list")
-    public ResponseEntity<DataContainer<Collection<SubCategoriesDto>>> showSubCategories(@RequestParam(defaultValue = "1") long catId){
-        return ResponseEntity.ok (new DataContainer<>(subCategoriesFacade.findSubCategoriesByCategories_Id(catId)));
+    public ResponseEntity<DataContainer<Collection<SubCategoriesDto>>> showSubCategories(@RequestParam(defaultValue = "1") long categoryId){
+        return ResponseEntity.ok (new DataContainer<>(subCategoriesFacade.findSubCategoriesByCategories_Id(categoryId)));
     }
 
 }

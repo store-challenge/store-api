@@ -16,7 +16,7 @@ public class SubCategoriesFacadeImpl implements SubCategoriesFacade {
     }
 
     @Override
-    public Collection<SubCategoriesDto> findSubCategoriesByCategories_Id(long catId) {
-        return subCategoriesService.findSubCategoriesByCategories_Id(catId).stream().map(SubCategoriesDto::new).toList();
+    public Collection<SubCategoriesDto> findSubCategoriesByCategories_Id(long categoryId) {
+        return subCategoriesService.findSubCategoriesByCategories_Id(categoryId).stream().map(SubCategoriesDto::new).toList();
     }
 }

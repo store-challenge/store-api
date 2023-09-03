@@ -8,5 +8,5 @@ import java.util.List;
 @Repository
 public interface SubCategoriesRepository extends BaseRepository<SubCategories> {
 
-    List<SubCategories> findSubCategoriesByCategories_Id(long catId);
+    List<SubCategories> findSubCategoriesByCategories_Id(long categoryId);
 }
