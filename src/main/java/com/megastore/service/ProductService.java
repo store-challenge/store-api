@@ -1,5 +1,6 @@
 package com.megastore.service;
 
+import com.megastore.model.Categories;
 import com.megastore.model.Product;
 
 import java.util.Collection;
@@ -11,6 +12,11 @@ public interface ProductService {
 
     Optional<Product> findById(Long id);
 
+    Collection<Product> findAll();
+    List<Product> findHotProducts(int limit, long categoryId);
+
+    List<Product> findRandomHotProducts(int limit);
+
     Collection<Product> findAll(long subcategoryId,
                                 double priceFrom,
                                 double priceTo,
@@ -19,6 +25,5 @@ public interface ProductService {
                                 String orderBy,
                                 int limit);
 
-    List<Product> findHotProducts(int limit, long catId);
 
 }

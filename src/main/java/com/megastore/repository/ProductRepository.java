@@ -11,11 +11,14 @@ import java.util.Collection;
 import java.util.List;
 
 @Repository
-public interface ProductRepository extends BaseRepository<Product>, PagingAndSortingRepository<Product, Long> {
-    @Query(value = "SELECT p.*, s.*, c.*, i.* FROM product p JOIN subcategories s ON p.subcategory_id = s.id JOIN categories c ON s.category_id = c.id JOIN images i ON p.id = i.product_id WHERE p.product_hot = true AND s.category_id = :catId ORDER BY RANDOM()",
-            countQuery = "SELECT COUNT(p.id) FROM product p JOIN subcategories s ON p.subcategory_id = s.id JOIN categories c ON s.category_id = c.id JOIN images i ON p.id = i.product_id WHERE p.product_hot = true AND s.category_id = :catId",
+public interface ProductRepository extends BaseRepository<Product> {
+    @Query(value = "SELECT p.*, s.*, c.*, i.* FROM product p JOIN subcategories s ON p.subcategory_id = s.id JOIN categories c ON s.category_id = c.id JOIN images i ON p.id = i.product_id WHERE p.product_hot = true AND s.category_id = :categoryId ORDER BY RANDOM()",
+            countQuery = "SELECT COUNT(p.id) FROM product p JOIN subcategories s ON p.subcategory_id = s.id JOIN categories c ON s.category_id = c.id JOIN images i ON p.id = i.product_id WHERE p.product_hot = true AND s.category_id = :categoryId",
             nativeQuery = true)
-    List<Product> findTopByIsHotProduct(Pageable pageable, @Param("catId") long catId);
+    List<Product> findTopByIsHotProduct(Pageable pageable, @Param("categoryId") long categoryId);
+    @Query(value = "SELECT p.*, s.*, c.*, i.* FROM product p JOIN subcategories s ON p.subcategory_id = s.id JOIN categories c ON s.category_id = c.id JOIN images i ON p.id = i.product_id WHERE p.product_hot = true ORDER BY RANDOM() LIMIT :limit",
+            nativeQuery = true)
+    List<Product> findRandomHotProducts(int limit);
 
     @Query(value = "SELECT * " +
             "FROM product p " +

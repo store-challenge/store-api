@@ -32,9 +32,6 @@ public class Product extends BaseEntity {
     @Column(name = "product_hot", nullable = false)
     private Boolean isHotProduct;
 
-    @Column(name = "product_brand", nullable = false)
-    private String productBrand;
-
     @Column(name = "product_available", nullable = false)
     private Integer productAvailable;
 
@@ -49,6 +46,10 @@ public class Product extends BaseEntity {
     //Images
     @OneToMany(mappedBy = "product")
     private List<Images> images;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "brand_id", referencedColumnName = "id")
+    private Brand brand;
 
     public Product() {
         super();

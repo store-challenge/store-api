@@ -42,7 +42,12 @@ public class ProductFacadeImpl implements ProductFacade {
     }
 
     @Override
-    public List<ProductHotDto> findHotProducts(int limit, long catId) {
-        return productService.findHotProducts(limit, catId).stream().map(ProductHotDto::new).toList();
+    public List<ProductHotDto> findHotProducts(int limit, long categoryId) {
+        return productService.findHotProducts(limit, categoryId).stream().map(ProductHotDto::new).toList();
+    }
+
+    @Override
+    public List<ProductHotDto> findRandomHotProducts(int limit) {
+        return productService.findRandomHotProducts(limit).stream().map(ProductHotDto::new).toList();
     }
 }
