@@ -11,8 +11,8 @@ public interface ProductFacade {
     ProductPDPDto findById(Long id);
 
     Collection<ProductPLPDto> findAll(long subcategoryId,
-                                      Double priceFrom,
-                                      Double priceTo,
+                                      double priceFrom,
+                                      double priceTo,
                                       String brand,
                                       String sortBy,
                                       String orderBy,

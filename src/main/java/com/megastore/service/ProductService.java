@@ -12,8 +12,8 @@ public interface ProductService {
     Optional<Product> findById(Long id);
 
     Collection<Product> findAll(long subcategoryId,
-                                Double priceFrom,
-                                Double priceTo,
+                                double priceFrom,
+                                double priceTo,
                                 String brand,
                                 String sortBy,
                                 String orderBy,

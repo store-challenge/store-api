@@ -37,8 +37,8 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(readOnly = true)
     @Override
     public Collection<Product> findAll(long subcategoryId,
-                                       Double priceFrom,
-                                       Double priceTo,
+                                       double priceFrom,
+                                       double priceTo,
                                        String brand,
                                        String sortBy,
                                        String orderBy,

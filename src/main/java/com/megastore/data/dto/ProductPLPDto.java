@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -14,6 +15,7 @@ public class ProductPLPDto {
 
 
     private Long id;
+    private Date updated;
     private String title;
     private BigDecimal price;
     private boolean isHot;
@@ -24,6 +26,7 @@ public class ProductPLPDto {
 
     public ProductPLPDto(Product product) {
         this.id = product.getId();
+        this.updated = product.getUpdated();
         this.title = product.getName();
         this.price = product.getPrice();
         this.isHot = product.getIsHotProduct();

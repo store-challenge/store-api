@@ -35,8 +35,8 @@ public interface ProductRepository extends BaseRepository<Product>, PagingAndSor
             "LIMIT :limit ",
             nativeQuery = true)
     Collection<Product> findAll(@Param("subcategoryId") long subcategoryId,
-                                @Param("priceFrom") Double priceFrom,
-                                @Param("priceTo") Double priceTo,
+                                @Param("priceFrom") double priceFrom,
+                                @Param("priceTo") double priceTo,
                                 @Param("brand") String brand,
                                 @Param("sortBy") String sortBy,
                                 @Param("orderBy") String orderBy,

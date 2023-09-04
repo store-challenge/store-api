@@ -26,8 +26,8 @@ public class ProductFacadeImpl implements ProductFacade {
 
     @Override
     public Collection<ProductPLPDto> findAll(long subcategoryId,
-                                             Double priceFrom,
-                                             Double priceTo,
+                                             double priceFrom,
+                                             double priceTo,
                                              String brand,
                                              String sortBy,
                                              String orderBy,
