@@ -1,5 +1,6 @@
 package com.megastore.data.dto;
 
+import com.megastore.model.Brand;
 import com.megastore.model.Product;
 
 import java.math.BigDecimal;
@@ -25,7 +26,7 @@ public class ProductPDPDto {
         this.price = product.getPrice();
         this.description = product.getDescription();
         this.isHot = product.getIsHotProduct();//
-        this.productBrand = product.getProductBrand();//
+        this.productBrand = product.getBrand().getName();//
         this.productAvailable = product.getProductAvailable();
         this.productArticle = product.getProductArticle();//
         this.subcategoryId = product.getSubCategories().getId();
@@ -33,4 +34,5 @@ public class ProductPDPDto {
         this.name = product.getSubCategories().getCategories().getName();
         this.icon = product.getSubCategories().getCategories().getIconName();
     }
+
 }

@@ -40,6 +40,11 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findById(id);
     }
 
+    @Override
+    public Collection<Product> findAll() {
+        return null;
+    }
+
     @Transactional(readOnly = true)
     @Override
     public Collection<Product> findAll(long subcategoryId,
