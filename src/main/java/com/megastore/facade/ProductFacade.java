@@ -14,8 +14,7 @@ public interface ProductFacade {
 
     Collection<ProductPLPDto> findAll();
 
-    List<ProductHotDto> findHotProducts(int limit, long categoryId);
+    List<ProductHotDto> findHotProducts(int limit, Long categoryId);
 
-    List<ProductHotDto> findRandomHotProducts(int limit);
     }
 

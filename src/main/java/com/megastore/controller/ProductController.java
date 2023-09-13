@@ -28,10 +28,6 @@ public class ProductController {
 
     @GetMapping("/hot")
     public ResponseEntity<List<ProductHotDto>> getHotProducts(@RequestParam(defaultValue = "4") int limit, @RequestParam(required = false) Long categoryId) {
-        if(categoryId!=null){
             return ResponseEntity.ok(new ArrayList<>(productFacade.findHotProducts(limit,categoryId)));
-        } else{
-            return ResponseEntity.ok(new ArrayList<>(productFacade.findRandomHotProducts(limit)));
-        }
     }
 }

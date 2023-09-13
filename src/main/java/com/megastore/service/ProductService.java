@@ -11,9 +11,9 @@ public interface ProductService {
     Optional<Product> findById(Long id);
 
     Collection<Product> findAll();
-    List<Product> findHotProducts(int limit, long categoryId);
+    List<Product> findHotProducts(int limit, Long categoryId);
 
-    List<Product> findRandomHotProducts(int limit);
+
 
 
 }
