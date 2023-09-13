@@ -77,8 +77,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional(readOnly = true)
     @Override
-    public Optional<Product> findById(Long id) {
-        return productRepository.findById(id);
+    public Optional<Product> findProductById(Long id) {
+        return Optional.ofNullable(productRepository.findProductById(id));
     }
 
     @Transactional(readOnly = true)

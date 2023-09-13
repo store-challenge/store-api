@@ -5,6 +5,7 @@ import com.megastore.data.dto.ProductPDPDto;
 import com.megastore.data.dto.ProductPLPDto;
 import com.megastore.data.dto.SubCategoriesDto;
 import com.megastore.facade.ProductFacade;
+import com.megastore.model.Product;
 import com.megastore.service.ProductService;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +22,9 @@ public class ProductFacadeImpl implements ProductFacade {
     }
 
     @Override
-    public ProductPDPDto findById(Long id) {
-        return null;
+    public ProductPDPDto findProductById(Long id) {
+        Product product = productService.findProductById(id).get();
+        return new ProductPDPDto(product);
     }
 
     @Override
