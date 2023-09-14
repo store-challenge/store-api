@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 public interface ProductFacade {
-    ProductPDPDto findById(Long id);
+    ProductPDPDto findProductById(Long id);
 
     Collection<ProductPLPDto> findAll();
 
