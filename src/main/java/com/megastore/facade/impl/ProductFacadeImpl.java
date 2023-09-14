@@ -4,6 +4,7 @@ import com.megastore.data.dto.ProductHotDto;
 import com.megastore.data.dto.ProductPDPDto;
 import com.megastore.data.dto.ProductPLPDto;
 import com.megastore.facade.ProductFacade;
+import com.megastore.model.Product;
 import com.megastore.service.ProductService;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,9 @@ public class ProductFacadeImpl implements ProductFacade {
     }
 
     @Override
-    public ProductPDPDto findById(Long id) {
-        return null;
+    public ProductPDPDto findProductById(Long id) {
+        Product product = productService.findProductById(id).get();
+        return new ProductPDPDto(product);
     }
 
     @Override
@@ -42,12 +44,8 @@ public class ProductFacadeImpl implements ProductFacade {
     }
 
     @Override
-    public List<ProductHotDto> findHotProducts(int limit, long categoryId) {
+    public List<ProductHotDto> findHotProducts(int limit, Long categoryId) {
         return productService.findHotProducts(limit, categoryId).stream().map(ProductHotDto::new).toList();
     }
 
-    @Override
-    public List<ProductHotDto> findRandomHotProducts(int limit) {
-        return productService.findRandomHotProducts(limit).stream().map(ProductHotDto::new).toList();
-    }
 }

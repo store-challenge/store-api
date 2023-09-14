@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 public interface ProductFacade {
-    ProductPDPDto findById(Long id);
+    ProductPDPDto findProductById(Long id);
 
     Collection<ProductPLPDto> findAll(long subcategoryId,
                                       double priceFrom,
@@ -20,8 +20,7 @@ public interface ProductFacade {
                                       String orderBy,
                                       int limit);
 
-    List<ProductHotDto> findHotProducts(int limit, long categoryId);
+    List<ProductHotDto> findHotProducts(int limit, Long categoryId);
 
-    List<ProductHotDto> findRandomHotProducts(int limit);
     }
 

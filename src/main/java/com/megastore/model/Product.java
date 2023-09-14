@@ -38,12 +38,12 @@ public class Product extends BaseEntity {
     @Column(name = "product_article", nullable = false)
     private Integer productArticle;
 
-    //SubCategories
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "subcategory_id", referencedColumnName = "id")
     private SubCategories subCategories;
 
-    //Images
+
     @OneToMany(mappedBy = "product")
     private List<Images> images;
 
