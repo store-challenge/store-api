@@ -27,13 +27,13 @@ public class ProductFacadeImpl implements ProductFacade {
     }
 
     @Override
-    public Collection<ProductPLPDto> findAll(long subcategoryId,
-                                             double priceFrom,
-                                             double priceTo,
+    public Collection<ProductPLPDto> findAll(Long subcategoryId,
+                                             Double priceFrom,
+                                             Double priceTo,
                                              String brand,
                                              String sortBy,
                                              String orderBy,
-                                             int limit) {
+                                             Integer limit) {
         return productService.findAll(subcategoryId,
                 priceFrom,
                 priceTo,

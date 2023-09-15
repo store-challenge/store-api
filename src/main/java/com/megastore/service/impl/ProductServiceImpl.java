@@ -1,5 +1,6 @@
 package com.megastore.service.impl;
 
+import com.megastore.model.Brand;
 import com.megastore.model.Product;
 import com.megastore.model.Images;
 import com.megastore.model.SubCategories;
@@ -30,15 +31,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Product> findHotProducts(int limit, long catId) {
-        Pageable pageable = PageRequest.of(0, limit);
-        return productRepository.findTopByIsHotProduct(pageable, catId);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Product> findRandomHotProducts(int limit) {
-        return productRepository.findRandomHotProducts(limit);
     public List<Product> findHotProducts(int limit, Long categoryId) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT p.*, s.*, c.*, i.* FROM product p ");
@@ -92,27 +84,91 @@ public class ProductServiceImpl implements ProductService {
         return Optional.ofNullable(productRepository.findProductById(id));
     }
 
-    @Override
-    public Collection<Product> findAll() {
-        return null;
-    }
-
     @Transactional(readOnly = true)
     @Override
-    public Collection<Product> findAll(long subcategoryId,
-                                       double priceFrom,
-                                       double priceTo,
+    public Collection<Product> findAll(Long subcategoryId,
+                                       Double priceFrom,
+                                       Double priceTo,
                                        String brand,
                                        String sortBy,
                                        String orderBy,
-                                       int limit) {
-        return productRepository.findAll(subcategoryId,
-                priceFrom,
-                priceTo,
-                brand,
-                sortBy,
-                orderBy,
-                limit);
+                                       Integer limit) {
+
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT * FROM product p ");
+        sql.append("JOIN subcategories s ON p.subcategory_id = s.id ");
+        sql.append("JOIN categories c ON s.category_id = c.id ");
+        sql.append("JOIN images img ON p.id = img.product_id ");
+//        sql.append("JOIN brand b ON p.brand_id = b.id ");
+        sql.append("WHERE s.id = " + subcategoryId + " ");
+
+        List<Object> params = new ArrayList<>();
+
+        if (priceFrom != null) {
+            sql.append("AND p.product_price BETWEEN " + priceFrom + " ");
+        }
+
+        if (priceTo != null) {
+            sql.append("AND " + priceTo + " ");
+        }
+
+        if (brand != null || brand == "") {
+            sql.append("AND p.product_brand LIKE ? ");
+            params.add("%" + brand + "%");
+        }
+
+        sql.append("ORDER BY ");
+
+        if (sortBy != "p.updated") {
+
+            if (sortBy == "p.product_title") {
+            sql.append(sortBy + " ");
+            } else if (sortBy == "p.product_price") {
+                    sql.append(sortBy + " ");
+                }
+            sql.append(sortBy + " ");
+
+        }
+
+        if (orderBy != "DESC") {
+
+            if (orderBy == "ASC") {
+                sql.append("ASC ");
+            }
+            sql.append("DESC ");
+        }
+
+        sql.append("LIMIT " + limit);
+
+        return jdbcTemplate.query(sql.toString(), params.toArray(), (rs, rowNum) -> {
+            Product product = new Product();
+            product.setId(rs.getLong("id"));
+            product.setName(rs.getString("product_title"));
+            product.setPrice(rs.getBigDecimal("product_price"));
+            product.setDescription(rs.getString("product_description"));
+            product.setIsHotProduct(rs.getBoolean("product_hot"));
+            product.setProductAvailable(rs.getInt("product_available"));
+            product.setProductArticle(rs.getInt("product_article"));
+
+            SubCategories subCategories = new SubCategories();
+            subCategories.setId(rs.getLong("subcategory_id"));
+            product.setSubCategories(subCategories);
+
+            List<Images> imagesList = new ArrayList<>();
+            Images image = new Images();
+            image.setId(rs.getLong("id"));
+            image.setPathImageURL(rs.getString("path_url"));
+            imagesList.add(image);
+            product.setImages(imagesList);
+
+//            Brand brandProduct = new Brand();
+//            brandProduct.setId(rs.getLong("brand_id"));
+//            product.setBrand(brandProduct);
+//            brandProduct.setName(rs.getString("name"));
+//            product.setName(brandProduct.getName());
+
+            return product;
+        });
     }
 
 }

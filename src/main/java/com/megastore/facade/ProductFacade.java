@@ -12,13 +12,13 @@ import java.util.List;
 public interface ProductFacade {
     ProductPDPDto findProductById(Long id);
 
-    Collection<ProductPLPDto> findAll(long subcategoryId,
-                                      double priceFrom,
-                                      double priceTo,
+    Collection<ProductPLPDto> findAll(Long subcategoryId,
+                                      Double priceFrom,
+                                      Double priceTo,
                                       String brand,
                                       String sortBy,
                                       String orderBy,
-                                      int limit);
+                                      Integer limit);
 
     List<ProductHotDto> findHotProducts(int limit, Long categoryId);
 

@@ -31,21 +31,29 @@ public class ProductController {
 
     @GetMapping("/list")
     public ResponseEntity<Collection<ProductPLPDto>> getAllProducts(
-            @RequestParam(defaultValue = "1") long subcategoryId,
-            @RequestParam(defaultValue = "0.00") double priceFrom,
-            @RequestParam(defaultValue = "10000000.00") double priceTo,
+//            @RequestParam(defaultValue = "1") Long subcategoryId,
+//            @RequestParam(defaultValue = "0.00") Double priceFrom,
+//            @RequestParam(defaultValue = "10000000.00") Double priceTo,
+//            @RequestParam(defaultValue = "") String brand,
+//            @RequestParam(defaultValue = "p.updated") String sortBy,
+//            @RequestParam(defaultValue = "DESC") String orderBy,
+//            @RequestParam(defaultValue = "9") Integer limit
+
+            @RequestParam(defaultValue = "1") Long subcategoryId,
+            @RequestParam(defaultValue = "0.00") Double priceFrom,
+            @RequestParam(defaultValue = "10000000.00") Double priceTo,
             @RequestParam(defaultValue = "") String brand,
             @RequestParam(defaultValue = "p.updated") String sortBy,
             @RequestParam(defaultValue = "DESC") String orderBy,
-            @RequestParam(defaultValue = "9") int limit
+            @RequestParam(defaultValue = "9") Integer limit
     ) {
-        return ResponseEntity.ok(productFacade.findAll(subcategoryId,
+        return ResponseEntity.ok(new ArrayList<>(productFacade.findAll(subcategoryId,
                 priceFrom,
                 priceTo,
                 brand,
                 sortBy,
                 orderBy,
-                limit));
+                limit)));
     }
 
     @GetMapping("/{id}")
