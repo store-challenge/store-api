@@ -24,6 +24,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     private final JdbcTemplate jdbcTemplate;
+
     public ProductServiceImpl(ProductRepository productRepository, JdbcTemplate jdbcTemplate) {
         this.productRepository = productRepository;
         this.jdbcTemplate = jdbcTemplate;
@@ -99,16 +100,21 @@ public class ProductServiceImpl implements ProductService {
         sql.append("JOIN subcategories s ON p.subcategory_id = s.id ");
         sql.append("JOIN categories c ON s.category_id = c.id ");
         sql.append("JOIN images img ON p.id = img.product_id ");
-        sql.append("WHERE s.id = " + subcategoryId + " ");
 
         List<Object> params = new ArrayList<>();
 
-        if (priceFrom != null) {
-            sql.append("AND p.product_price BETWEEN " + priceFrom + " ");
+        if (subcategoryId != null) {
+            sql.append("WHERE s.id = " + subcategoryId + " ");
+        } else {
+            sql.append("WHERE s.id >= 1 ");
         }
 
-        if (priceTo != null) {
-            sql.append("AND " + priceTo + " ");
+        if (priceFrom != null && priceTo != null) {
+            sql.append("AND p.product_price BETWEEN " + priceFrom + " AND " + priceTo + "  ");
+        } else if (priceFrom != null && priceTo == null) {
+            sql.append("AND p.product_price >= " + priceFrom + "  ");
+        } else if (priceFrom == null && priceTo != null) {
+            sql.append("AND p.product_price <= " + priceTo + "  ");
         }
 
         if (brand != null || brand == "") {
@@ -116,25 +122,19 @@ public class ProductServiceImpl implements ProductService {
             params.add("%" + brand + "%");
         }
 
-        sql.append("ORDER BY ");
-
-        if (sortBy != "p.updated") {
-
-            if (sortBy == "p.product_title") {
+        if (sortBy != null) {
+            sql.append("ORDER BY ");
             sql.append(sortBy + " ");
-            } else if (sortBy == "p.product_price") {
-                    sql.append(sortBy + " ");
-                }
-            sql.append(sortBy + " ");
-
+            if (sortBy.equals("p.product_title")) {
+            } else if (sortBy.equals("p.product_price")) {
+            }
         }
 
-        if (orderBy != "DESC") {
+        sql.append(" ");
 
-            if (orderBy == "ASC") {
-                sql.append("ASC ");
-            }
-            sql.append("DESC ");
+        if (orderBy == "DESC") {
+        } else {
+            sql.append(orderBy + " ");
         }
 
         sql.append("LIMIT " + limit);

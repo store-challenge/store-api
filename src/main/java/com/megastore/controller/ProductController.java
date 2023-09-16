@@ -31,17 +31,9 @@ public class ProductController {
 
     @GetMapping("/list")
     public ResponseEntity<Collection<ProductPLPDto>> getAllProducts(
-//            @RequestParam(defaultValue = "1") Long subcategoryId,
-//            @RequestParam(defaultValue = "0.00") Double priceFrom,
-//            @RequestParam(defaultValue = "10000000.00") Double priceTo,
-//            @RequestParam(defaultValue = "") String brand,
-//            @RequestParam(defaultValue = "p.updated") String sortBy,
-//            @RequestParam(defaultValue = "DESC") String orderBy,
-//            @RequestParam(defaultValue = "9") Integer limit
-
-            @RequestParam(defaultValue = "1") Long subcategoryId,
+            @RequestParam(required = false) Long subcategoryId,
             @RequestParam(defaultValue = "0.00") Double priceFrom,
-            @RequestParam(defaultValue = "10000000.00") Double priceTo,
+            @RequestParam(required = false) Double priceTo,
             @RequestParam(defaultValue = "") String brand,
             @RequestParam(defaultValue = "p.updated") String sortBy,
             @RequestParam(defaultValue = "DESC") String orderBy,
