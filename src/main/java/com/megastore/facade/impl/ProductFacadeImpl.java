@@ -3,7 +3,6 @@ package com.megastore.facade.impl;
 import com.megastore.data.dto.ProductHotDto;
 import com.megastore.data.dto.ProductPDPDto;
 import com.megastore.data.dto.ProductPLPDto;
-import com.megastore.data.dto.SubCategoriesDto;
 import com.megastore.facade.ProductFacade;
 import com.megastore.model.Product;
 import com.megastore.service.ProductService;
@@ -28,8 +27,20 @@ public class ProductFacadeImpl implements ProductFacade {
     }
 
     @Override
-    public Collection<ProductPLPDto> findAll() {
-        return null;
+    public Collection<ProductPLPDto> findAll(Long subcategoryId,
+                                             Double priceFrom,
+                                             Double priceTo,
+                                             String brand,
+                                             String sortBy,
+                                             String orderBy,
+                                             Integer limit) {
+        return productService.findAll(subcategoryId,
+                priceFrom,
+                priceTo,
+                brand,
+                sortBy,
+                orderBy,
+                limit).stream().map(ProductPLPDto::new).toList();
     }
 
     @Override

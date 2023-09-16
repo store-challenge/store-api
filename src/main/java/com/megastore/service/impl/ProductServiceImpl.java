@@ -1,10 +1,13 @@
 package com.megastore.service.impl;
 
+import com.megastore.model.Brand;
 import com.megastore.model.Product;
 import com.megastore.model.Images;
 import com.megastore.model.SubCategories;
 import com.megastore.repository.ProductRepository;
 import com.megastore.service.ProductService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     private final JdbcTemplate jdbcTemplate;
+
     public ProductServiceImpl(ProductRepository productRepository, JdbcTemplate jdbcTemplate) {
         this.productRepository = productRepository;
         this.jdbcTemplate = jdbcTemplate;
@@ -83,7 +87,87 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional(readOnly = true)
     @Override
-    public Collection<Product> findAll() {
-        return productRepository.findAll();
+    public Collection<Product> findAll(Long subcategoryId,
+                                       Double priceFrom,
+                                       Double priceTo,
+                                       String brand,
+                                       String sortBy,
+                                       String orderBy,
+                                       Integer limit) {
+
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT * FROM product p ");
+        sql.append("JOIN subcategories s ON p.subcategory_id = s.id ");
+        sql.append("JOIN categories c ON s.category_id = c.id ");
+        sql.append("JOIN images img ON p.id = img.product_id ");
+
+        List<Object> params = new ArrayList<>();
+
+        if (subcategoryId != null) {
+            sql.append("WHERE s.id = " + subcategoryId + " ");
+        } else {
+            sql.append("WHERE s.id >= 1 ");
+        }
+
+        if (priceFrom != null && priceTo != null) {
+            sql.append("AND p.product_price BETWEEN " + priceFrom + " AND " + priceTo + "  ");
+        } else if (priceFrom != null && priceTo == null) {
+            sql.append("AND p.product_price >= " + priceFrom + "  ");
+        } else if (priceFrom == null && priceTo != null) {
+            sql.append("AND p.product_price <= " + priceTo + "  ");
+        }
+
+        if (brand != null || brand == "") {
+            sql.append("AND p.product_brand LIKE ? ");
+            params.add("%" + brand + "%");
+        }
+
+        if (sortBy != null) {
+            sql.append("ORDER BY ");
+            sql.append(sortBy + " ");
+            if (sortBy.equals("p.product_title")) {
+            } else if (sortBy.equals("p.product_price")) {
+            }
+        }
+
+        sql.append(" ");
+
+        if (orderBy == "DESC") {
+        } else {
+            sql.append(orderBy + " ");
+        }
+
+        sql.append("LIMIT " + limit);
+
+        return jdbcTemplate.query(sql.toString(), params.toArray(), (rs, rowNum) -> {
+            Product product = new Product();
+            product.setId(rs.getLong("id"));
+            product.setName(rs.getString("product_title"));
+            product.setPrice(rs.getBigDecimal("product_price"));
+            product.setDescription(rs.getString("product_description"));
+            product.setIsHotProduct(rs.getBoolean("product_hot"));
+            product.setProductAvailable(rs.getInt("product_available"));
+            product.setProductArticle(rs.getInt("product_article"));
+
+            SubCategories subCategories = new SubCategories();
+            subCategories.setId(rs.getLong("subcategory_id"));
+            product.setSubCategories(subCategories);
+
+            List<Images> imagesList = new ArrayList<>();
+            Images image = new Images();
+            image.setId(rs.getLong("id"));
+            image.setPathImageURL(rs.getString("path_url"));
+            imagesList.add(image);
+            product.setImages(imagesList);
+
+            Brand brandProduct = new Brand();
+            brandProduct.setId(rs.getLong("brand_id"));
+            product.setBrand(brandProduct);
+            brandProduct.setName(rs.getString("product_brand"));
+            product.setBrand(brandProduct);
+
+            return product;
+        });
     }
+
 }
