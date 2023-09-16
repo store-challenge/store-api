@@ -99,7 +99,6 @@ public class ProductServiceImpl implements ProductService {
         sql.append("JOIN subcategories s ON p.subcategory_id = s.id ");
         sql.append("JOIN categories c ON s.category_id = c.id ");
         sql.append("JOIN images img ON p.id = img.product_id ");
-//        sql.append("JOIN brand b ON p.brand_id = b.id ");
         sql.append("WHERE s.id = " + subcategoryId + " ");
 
         List<Object> params = new ArrayList<>();
@@ -161,11 +160,11 @@ public class ProductServiceImpl implements ProductService {
             imagesList.add(image);
             product.setImages(imagesList);
 
-//            Brand brandProduct = new Brand();
-//            brandProduct.setId(rs.getLong("brand_id"));
-//            product.setBrand(brandProduct);
-//            brandProduct.setName(rs.getString("name"));
-//            product.setName(brandProduct.getName());
+            Brand brandProduct = new Brand();
+            brandProduct.setId(rs.getLong("brand_id"));
+            product.setBrand(brandProduct);
+            brandProduct.setName(rs.getString("product_brand"));
+            product.setBrand(brandProduct);
 
             return product;
         });
