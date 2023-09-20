@@ -90,7 +90,7 @@ public class ProductServiceImpl implements ProductService {
     public Collection<Product> findAll(Long subcategoryId,
                                        Double priceFrom,
                                        Double priceTo,
-                                       String brand,
+                                       Long brand,
                                        String sortBy,
                                        String orderBy,
                                        Integer limit) {
@@ -100,6 +100,7 @@ public class ProductServiceImpl implements ProductService {
         sql.append("JOIN subcategories s ON p.subcategory_id = s.id ");
         sql.append("JOIN categories c ON s.category_id = c.id ");
         sql.append("JOIN images img ON p.id = img.product_id ");
+        sql.append("JOIN brand b ON p.brand_id = b.id ");
 
         List<Object> params = new ArrayList<>();
 
@@ -117,9 +118,8 @@ public class ProductServiceImpl implements ProductService {
             sql.append("AND p.product_price <= " + priceTo + "  ");
         }
 
-        if (brand != null || brand == "") {
-            sql.append("AND p.product_brand LIKE ? ");
-            params.add("%" + brand + "%");
+        if (brand != null ) {
+            sql.append("AND b.id = " + brand + " ");
         }
 
         if (sortBy != null) {
@@ -162,8 +162,6 @@ public class ProductServiceImpl implements ProductService {
 
             Brand brandProduct = new Brand();
             brandProduct.setId(rs.getLong("brand_id"));
-            product.setBrand(brandProduct);
-            brandProduct.setName(rs.getString("product_brand"));
             product.setBrand(brandProduct);
 
             return product;
