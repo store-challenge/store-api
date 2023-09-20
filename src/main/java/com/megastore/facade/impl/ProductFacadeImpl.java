@@ -30,7 +30,7 @@ public class ProductFacadeImpl implements ProductFacade {
     public Collection<ProductPLPDto> findAll(Long subcategoryId,
                                              Double priceFrom,
                                              Double priceTo,
-                                             String brand,
+                                             Long brand,
                                              String sortBy,
                                              String orderBy,
                                              Integer limit) {

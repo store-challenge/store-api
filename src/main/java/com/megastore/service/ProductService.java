@@ -12,7 +12,7 @@ public interface ProductService {
     Collection<Product> findAll(Long subcategoryId,
                                 Double priceFrom,
                                 Double priceTo,
-                                String brand,
+                                Long brand,
                                 String sortBy,
                                 String orderBy,
                                 Integer limit);

@@ -34,7 +34,7 @@ public class ProductController {
             @RequestParam(required = false) Long subcategoryId,
             @RequestParam(defaultValue = "0.00") Double priceFrom,
             @RequestParam(required = false) Double priceTo,
-            @RequestParam(defaultValue = "") String brand,
+            @RequestParam(defaultValue = "1") Long brand,
             @RequestParam(defaultValue = "p.updated") String sortBy,
             @RequestParam(defaultValue = "DESC") String orderBy,
             @RequestParam(defaultValue = "9") Integer limit
