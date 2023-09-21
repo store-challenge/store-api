@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductFacadeImpl implements ProductFacade {
@@ -22,7 +23,11 @@ public class ProductFacadeImpl implements ProductFacade {
 
     @Override
     public ProductPDPDto findProductById(Long id) {
-        Product product = productService.findProductById(id).get();
+        Optional<Product> optionalProduct = productService.findProductById(id);
+        if (optionalProduct.isEmpty()) {
+            throw new RuntimeException("product not exist");
+        }
+        Product product = optionalProduct.get();
         return new ProductPDPDto(product);
     }
 
