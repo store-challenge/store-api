@@ -106,8 +106,6 @@ public class ProductServiceImpl implements ProductService {
 
         if (subcategoryId != null) {
             sql.append("WHERE s.id = " + subcategoryId + " ");
-        } else {
-            sql.append("WHERE s.id >= 1 ");
         }
 
         if (priceFrom != null && priceTo != null) {

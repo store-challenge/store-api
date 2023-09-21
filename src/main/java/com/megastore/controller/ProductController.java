@@ -39,7 +39,7 @@ public class ProductController {
             @RequestParam(required = false) Long subcategoryId,
             @RequestParam(defaultValue = "0.00") Double priceFrom,
             @RequestParam(required = false) Double priceTo,
-            @RequestParam(defaultValue = "1") Long brand,
+            @RequestParam(required = false) Long brand,
             @RequestParam(defaultValue = "p.updated") String sortBy,
             @RequestParam(defaultValue = "DESC") String orderBy,
             @RequestParam(defaultValue = "9") Integer limit
@@ -48,13 +48,6 @@ public class ProductController {
         response.put("products-list", productFacade.findAll(subcategoryId, priceFrom, priceTo, brand, sortBy, orderBy, limit));
         response.put("brands-list", brandFacade.findAll());
         return ResponseEntity.ok(response);
-//        return ResponseEntity.ok(new ArrayList<>(productFacade.findAll(subcategoryId,
-//                priceFrom,
-//                priceTo,
-//                brand,
-//                sortBy,
-//                orderBy,
-//                limit)));
     }
 
     @GetMapping("/{id}")
