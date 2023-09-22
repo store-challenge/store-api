@@ -9,6 +9,7 @@ import org.apache.commons.collections4.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -27,7 +28,7 @@ public class ProductPDPDto {
     private Long categoryId;
     private String categoryName;
     private String brand;
-    private String image;
+    private List<String> images;
 
     public ProductPDPDto(Product product){
         this.id = product.getId();
@@ -45,9 +46,9 @@ public class ProductPDPDto {
         initImages(product);
     }
     private void initImages(Product product){
-        List<Images> images = product.getImages();
-        if(CollectionUtils.isNotEmpty(images)){
-            this.image = images.get(0).getPathImageURL();
+        List<Images> image = product.getImages();
+        if(CollectionUtils.isNotEmpty(image)){
+            this.images = image.stream().map(Images::getPathImageURL).collect(Collectors.toList());
         }
     }
 }
