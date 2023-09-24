@@ -88,6 +88,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(readOnly = true)
     @Override
     public Collection<Product> findAll(Long subcategoryId,
+                                       String productName,
                                        Double priceFrom,
                                        Double priceTo,
                                        Long brand,
@@ -106,6 +107,10 @@ public class ProductServiceImpl implements ProductService {
 
         if (subcategoryId != null) {
             sql.append("WHERE s.id = " + subcategoryId + " ");
+        }
+
+        if (productName != null) {
+            sql.append("WHERE " + "LOWER(p.product_title) LIKE " + "\'" + productName.toLowerCase() + "%\'" + " ");
         }
 
         if (priceFrom != null && priceTo != null) {

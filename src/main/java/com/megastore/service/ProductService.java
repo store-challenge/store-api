@@ -10,6 +10,7 @@ public interface ProductService {
     Optional<Product> findProductById(Long id);
     List<Product> findHotProducts(int limit, Long categoryId);
     Collection<Product> findAll(Long subcategoryId,
+                                String productName,
                                 Double priceFrom,
                                 Double priceTo,
                                 Long brand,

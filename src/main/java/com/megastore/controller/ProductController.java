@@ -35,8 +35,9 @@ public class ProductController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<Map<String, Object>> getAllProducts(
+    public ResponseEntity<Collection<ProductPLPDto>> getAllProducts(
             @RequestParam(required = false) Long subcategoryId,
+            @RequestParam(required = false) String productName,
             @RequestParam(defaultValue = "0.00") Double priceFrom,
             @RequestParam(required = false) Double priceTo,
             @RequestParam(required = false) Long brand,
@@ -44,10 +45,7 @@ public class ProductController {
             @RequestParam(defaultValue = "DESC") String orderBy,
             @RequestParam(defaultValue = "9") Integer limit
     ) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("products-list", productFacade.findAll(subcategoryId, priceFrom, priceTo, brand, sortBy, orderBy, limit));
-        response.put("brands-list", brandFacade.findAll());
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(new ArrayList<>(productFacade.findAll(subcategoryId, productName, priceFrom, priceTo, brand, sortBy, orderBy, limit)));
     }
 
     @GetMapping("/{id}")

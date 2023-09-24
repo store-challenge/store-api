@@ -13,6 +13,7 @@ public interface ProductFacade {
     ProductPDPDto findProductById(Long id);
 
     Collection<ProductPLPDto> findAll(Long subcategoryId,
+                                      String productName,
                                       Double priceFrom,
                                       Double priceTo,
                                       Long brand,

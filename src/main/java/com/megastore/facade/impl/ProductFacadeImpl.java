@@ -33,6 +33,7 @@ public class ProductFacadeImpl implements ProductFacade {
 
     @Override
     public Collection<ProductPLPDto> findAll(Long subcategoryId,
+                                             String productName,
                                              Double priceFrom,
                                              Double priceTo,
                                              Long brand,
@@ -40,6 +41,7 @@ public class ProductFacadeImpl implements ProductFacade {
                                              String orderBy,
                                              Integer limit) {
         return productService.findAll(subcategoryId,
+                productName,
                 priceFrom,
                 priceTo,
                 brand,
