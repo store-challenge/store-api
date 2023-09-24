@@ -10,6 +10,7 @@ import org.apache.commons.collections4.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -20,8 +21,6 @@ public class ProductHotDto {
     private BigDecimal price;
     private String image;
     private boolean isHot;
-
-
 
     public ProductHotDto(Product product) {
         this.id = product.getId();

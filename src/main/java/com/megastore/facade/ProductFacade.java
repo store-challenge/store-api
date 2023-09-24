@@ -8,9 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 public interface ProductFacade {
-    ProductPDPDto findProductById(Long id);
+    Optional<ProductPDPDto> findProductById(Long id);
 
     Collection<ProductPLPDto> findAll(Long subcategoryId,
                                       Double priceFrom,
@@ -20,7 +22,7 @@ public interface ProductFacade {
                                       String orderBy,
                                       Integer limit);
 
-    List<ProductHotDto> findHotProducts(int limit, Long categoryId);
+    Set<ProductHotDto> findHotProducts(int limit, Long categoryId);
 
     }
 

@@ -9,11 +9,7 @@ import com.megastore.facade.ProductFacade;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @RestController
@@ -52,7 +48,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductPDPDto> getProduct(@PathVariable Long id) {
-        return ResponseEntity.ok(productFacade.findProductById(id));
+        Optional<ProductPDPDto> productOptional = productFacade.findProductById(id);
+        return productOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-
 }
