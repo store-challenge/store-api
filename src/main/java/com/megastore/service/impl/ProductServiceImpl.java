@@ -13,10 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -32,9 +29,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Product> findHotProducts(int limit, Long categoryId) {
+    public Set<Product> findHotProducts(int limit, Long categoryId) {
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT p.*, s.*, c.*, i.* FROM product p ");
+        sql.append("SELECT DISTINCT ON (p.id) p.*, s.*, c.*, i.*, RANDOM() as random_order FROM product p ");
         sql.append("JOIN subcategories s ON p.subcategory_id = s.id ");
         sql.append("JOIN categories c ON s.category_id = c.id ");
         sql.append("JOIN images i ON p.id = i.product_id ");
@@ -44,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
             sql.append("AND s.category_id = ? ");
         }
 
-        sql.append("ORDER BY RANDOM() ");
+        sql.append("ORDER BY p.id, random_order ");
         sql.append("LIMIT ?");
 
         List<Object> params = new ArrayList<>();
@@ -53,7 +50,7 @@ public class ProductServiceImpl implements ProductService {
         }
         params.add(limit);
 
-        return jdbcTemplate.query(sql.toString(), params.toArray(), (rs, rowNum) -> {
+        return new HashSet<>(jdbcTemplate.query(sql.toString(), params.toArray(), (rs, rowNum) -> {
             Product product = new Product();
             product.setId(rs.getLong("id"));
             product.setName(rs.getString("product_title"));
@@ -75,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
             product.setImages(imagesList);
 
             return product;
-        });
+        }));
     }
 
 
