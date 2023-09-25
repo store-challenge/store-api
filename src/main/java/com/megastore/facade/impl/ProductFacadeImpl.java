@@ -6,11 +6,14 @@ import com.megastore.data.dto.ProductPLPDto;
 import com.megastore.facade.ProductFacade;
 import com.megastore.model.Product;
 import com.megastore.service.ProductService;
+import lombok.EqualsAndHashCode;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductFacadeImpl implements ProductFacade {
@@ -22,13 +25,15 @@ public class ProductFacadeImpl implements ProductFacade {
     }
 
     @Override
-    public ProductPDPDto findProductById(Long id) {
+    public Optional<ProductPDPDto> findProductById(Long id) {
         Optional<Product> optionalProduct = productService.findProductById(id);
+
         if (optionalProduct.isEmpty()) {
-            throw new RuntimeException("product not exist");
+            return Optional.empty();
         }
+
         Product product = optionalProduct.get();
-        return new ProductPDPDto(product);
+        return Optional.of(new ProductPDPDto(product));
     }
 
     @Override
@@ -51,8 +56,8 @@ public class ProductFacadeImpl implements ProductFacade {
     }
 
     @Override
-    public List<ProductHotDto> findHotProducts(int limit, Long categoryId) {
-        return productService.findHotProducts(limit, categoryId).stream().map(ProductHotDto::new).toList();
+    public Set<ProductHotDto> findHotProducts(int limit, Long categoryId) {
+        return productService.findHotProducts(limit, categoryId).stream().map(ProductHotDto::new).collect(Collectors.toSet());
     }
 
 }
