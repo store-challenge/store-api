@@ -1,6 +1,7 @@
 package com.megastore.service.impl;
 
 import com.megastore.model.Brand;
+import com.megastore.model.Categories;
 import com.megastore.model.Product;
 import com.megastore.model.Images;
 import com.megastore.model.SubCategories;
@@ -97,7 +98,7 @@ public class ProductServiceImpl implements ProductService {
                                        Integer limit) {
 
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT * FROM product p ");
+        sql.append("SELECT *, c.name as category_name, b.name as brand_name FROM product p ");
         sql.append("JOIN subcategories s ON p.subcategory_id = s.id ");
         sql.append("JOIN categories c ON s.category_id = c.id ");
         sql.append("JOIN images img ON p.id = img.product_id ");
@@ -152,8 +153,16 @@ public class ProductServiceImpl implements ProductService {
             product.setProductAvailable(rs.getInt("product_available"));
             product.setProductArticle(rs.getInt("product_article"));
 
+
             SubCategories subCategories = new SubCategories();
             subCategories.setId(rs.getLong("subcategory_id"));
+            subCategories.setName(rs.getString("name"));
+            product.setSubCategories(subCategories);
+
+            Categories categories = new Categories();
+            categories.setId(rs.getLong("category_id"));
+            categories.setName(rs.getString("category_name"));
+            subCategories.setCategories(categories);
             product.setSubCategories(subCategories);
 
             List<Images> imagesList = new ArrayList<>();
@@ -165,6 +174,7 @@ public class ProductServiceImpl implements ProductService {
 
             Brand brandProduct = new Brand();
             brandProduct.setId(rs.getLong("brand_id"));
+            brandProduct.setName(rs.getString("brand_name"));
             product.setBrand(brandProduct);
 
             return product;
