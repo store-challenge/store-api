@@ -107,8 +107,8 @@ public class ProductServiceImpl implements ProductService {
             sql.append("WHERE s.id = " + subcategoryId + " ");
         }
 
-        if (productName != null) {
-            sql.append("WHERE " + "LOWER(p.product_title) LIKE " + "\'" + productName.toLowerCase() + "%\'" + " ");
+        if (productName != null && productName.length() >= 3) {
+            sql.append("WHERE " + "LOWER(p.product_title) LIKE " + "\'%" + productName.toLowerCase() + "%\'" + " ");
         }
 
         if (priceFrom != null && priceTo != null) {
