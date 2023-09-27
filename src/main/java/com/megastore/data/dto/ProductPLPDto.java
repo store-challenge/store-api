@@ -28,7 +28,7 @@ public class ProductPLPDto {
     private Long subcategoryId;
     private String subcategoryName;
 
-    private String topImage;
+    private String image;
 
     public ProductPLPDto(Product product) {
         this.id = product.getId();
@@ -44,7 +44,7 @@ public class ProductPLPDto {
         this.subcategoryName = product.getSubCategories().getName();
         this.categoryId = product.getSubCategories().getCategories().getId();
         this.categoryName = product.getSubCategories().getCategories().getName();
-        this.topImage = product.getImages().get(0).getPathImageURL();
+        this.image = product.getImages().get(0).getPathImageURL();
     }
 }
 
