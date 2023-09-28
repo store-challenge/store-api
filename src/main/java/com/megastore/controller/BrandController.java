@@ -20,4 +20,10 @@ public class BrandController {
     public ResponseEntity<Collection<BrandDto>> getAllBrands() {
         return ResponseEntity.ok(new ArrayList<>(brandFacade.findAll()));
     }
+
+    @GetMapping("/bySubcategory")
+    public ResponseEntity<Collection<BrandDto>> getAllBrandsBySubcategoryId(@RequestParam(required = false) Long subcategoryId) {
+        System.out.println(subcategoryId);
+        return ResponseEntity.ok(new ArrayList<>(brandFacade.findAllBySubcategory_Id(subcategoryId)));
+    }
 }

@@ -20,4 +20,8 @@ public class BrandFacadeImpl implements BrandFacade {
     public Collection<BrandDto> findAll() {
         return brandService.findAll().stream().map(BrandDto::new).toList();
     }
+
+    public Collection<BrandDto> findAllBySubcategory_Id(Long subcategoryId) {
+        return brandService.findAllBySubcategory_Id(subcategoryId).stream().map(BrandDto::new).toList();
+    }
 }
