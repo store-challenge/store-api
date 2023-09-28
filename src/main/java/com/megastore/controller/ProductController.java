@@ -34,12 +34,12 @@ public class ProductController {
             @RequestParam(required = false) String productName,
             @RequestParam(defaultValue = "0.00") Double priceFrom,
             @RequestParam(required = false) Double priceTo,
-            @RequestParam(required = false) Long brand,
+            @RequestParam(required = false) Set<Long> brands,
             @RequestParam(defaultValue = "p.updated") String sortBy,
             @RequestParam(defaultValue = "DESC") String orderBy,
             @RequestParam(defaultValue = "9") Integer limit
     ) {
-        return ResponseEntity.ok(new ArrayList<>(productFacade.findAll(subcategoryId, productName, priceFrom, priceTo, brand, sortBy, orderBy, limit)));
+        return ResponseEntity.ok(new ArrayList<>(productFacade.findAll(subcategoryId, productName, priceFrom, priceTo, brands, sortBy, orderBy, limit)));
     }
 
     @GetMapping("/{id}")
