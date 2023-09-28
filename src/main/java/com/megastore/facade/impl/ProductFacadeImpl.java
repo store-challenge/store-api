@@ -41,7 +41,7 @@ public class ProductFacadeImpl implements ProductFacade {
                                              String productName,
                                              Double priceFrom,
                                              Double priceTo,
-                                             Long brand,
+                                             Set<Long> brands,
                                              String sortBy,
                                              String orderBy,
                                              Integer limit) {
@@ -49,7 +49,7 @@ public class ProductFacadeImpl implements ProductFacade {
                 productName,
                 priceFrom,
                 priceTo,
-                brand,
+                brands,
                 sortBy,
                 orderBy,
                 limit).stream().map(ProductPLPDto::new).toList();

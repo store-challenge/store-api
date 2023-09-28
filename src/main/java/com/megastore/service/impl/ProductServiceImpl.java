@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -89,7 +90,7 @@ public class ProductServiceImpl implements ProductService {
                                        String productName,
                                        Double priceFrom,
                                        Double priceTo,
-                                       Long brand,
+                                       Set<Long> brands,
                                        String sortBy,
                                        String orderBy,
                                        Integer limit) {
@@ -100,8 +101,6 @@ public class ProductServiceImpl implements ProductService {
         sql.append("JOIN categories c ON s.category_id = c.id ");
         sql.append("JOIN images img ON p.id = img.product_id ");
         sql.append("JOIN brand b ON p.brand_id = b.id ");
-
-        List<Object> params = new ArrayList<>();
 
         if (subcategoryId != null) {
             sql.append("WHERE s.id = " + subcategoryId + " ");
@@ -118,9 +117,9 @@ public class ProductServiceImpl implements ProductService {
         } else if (priceFrom == null && priceTo != null) {
             sql.append("AND p.product_price <= " + priceTo + "  ");
         }
-
-        if (brand != null ) {
-            sql.append("AND b.id = " + brand + " ");
+        if (brands != null && !brands.isEmpty()) {
+            sql.append("AND ");
+            sql.append("b.id IN (" + brands.stream().map(String::valueOf).collect(Collectors.joining(",")) + ") ");
         }
 
         if (sortBy != null) {
@@ -140,7 +139,7 @@ public class ProductServiceImpl implements ProductService {
 
         sql.append("LIMIT " + limit);
 
-        return jdbcTemplate.query(sql.toString(), params.toArray(), (rs, rowNum) -> {
+        return jdbcTemplate.query(sql.toString(), (rs, rowNum) -> {
             Product product = new Product();
             product.setId(rs.getLong("id"));
             product.setName(rs.getString("product_title"));
@@ -149,7 +148,6 @@ public class ProductServiceImpl implements ProductService {
             product.setIsHotProduct(rs.getBoolean("product_hot"));
             product.setProductAvailable(rs.getInt("product_available"));
             product.setProductArticle(rs.getInt("product_article"));
-
 
             SubCategories subCategories = new SubCategories();
             subCategories.setId(rs.getLong("subcategory_id"));

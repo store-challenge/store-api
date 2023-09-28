@@ -13,7 +13,7 @@ public interface ProductService {
                                 String productName,
                                 Double priceFrom,
                                 Double priceTo,
-                                Long brand,
+                                Set<Long> brands,
                                 String sortBy,
                                 String orderBy,
                                 Integer limit);
