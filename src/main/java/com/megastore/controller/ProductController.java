@@ -18,11 +18,9 @@ import java.util.*;
 public class ProductController {
 
     private final ProductFacade productFacade;
-    private final BrandFacade brandFacade;
 
     public ProductController(ProductFacade productFacade, BrandFacade brandFacade) {
         this.productFacade = productFacade;
-        this.brandFacade = brandFacade;
     }
 
     @GetMapping("/hot")

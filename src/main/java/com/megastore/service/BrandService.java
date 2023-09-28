@@ -6,4 +6,6 @@ import java.util.Collection;
 
 public interface BrandService {
     Collection<Brand> findAll();
+
+    Collection<Brand> findAllBySubcategory_Id(Long subcategoryId);
 }
