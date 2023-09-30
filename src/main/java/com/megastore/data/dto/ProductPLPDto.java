@@ -1,6 +1,7 @@
 package com.megastore.data.dto;
 
 import com.megastore.model.Product;
+import com.megastore.util.DiscountUtil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,7 +28,8 @@ public class ProductPLPDto {
     private String categoryName;
     private Long subcategoryId;
     private String subcategoryName;
-
+    private BigDecimal discount;
+    private BigDecimal discountPrice;
     private String image;
 
     public ProductPLPDto(Product product) {
@@ -45,6 +47,8 @@ public class ProductPLPDto {
         this.categoryId = product.getSubCategories().getCategories().getId();
         this.categoryName = product.getSubCategories().getCategories().getName();
         this.image = product.getImages().get(0).getPathImageURL();
+        this.discount = product.getProductDiscount();
+        this.discountPrice = DiscountUtil.countDiscountPrice(price, discount);
     }
 }
 

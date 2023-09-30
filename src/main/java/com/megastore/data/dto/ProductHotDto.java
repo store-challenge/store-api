@@ -2,6 +2,7 @@ package com.megastore.data.dto;
 
 import com.megastore.model.Images;
 import com.megastore.model.Product;
+import com.megastore.util.DiscountUtil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +11,6 @@ import org.apache.commons.collections4.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -21,18 +21,22 @@ public class ProductHotDto {
     private BigDecimal price;
     private String image;
     private boolean isHot;
+    private BigDecimal discount;
+    private BigDecimal discountPrice;
 
     public ProductHotDto(Product product) {
         this.id = product.getId();
         this.title = product.getName();
         this.price = product.getPrice();
         this.isHot = product.getIsHotProduct();
+        this.discount = product.getProductDiscount();
+        this.discountPrice = DiscountUtil.countDiscountPrice(price, discount);
         initImages(product);
-
     }
-    private void initImages(Product product){
+
+    private void initImages(Product product) {
         List<Images> images = product.getImages();
-        if(CollectionUtils.isNotEmpty(images)){
+        if (CollectionUtils.isNotEmpty(images)) {
             this.image = images.get(0).getPathImageURL();
         }
     }
