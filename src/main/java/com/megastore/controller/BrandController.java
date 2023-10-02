@@ -23,7 +23,6 @@ public class BrandController {
 
     @GetMapping("/bySubcategory")
     public ResponseEntity<Collection<BrandDto>> getAllBrandsBySubcategoryId(@RequestParam(required = false) Long subcategoryId) {
-        System.out.println(subcategoryId);
         return ResponseEntity.ok(new ArrayList<>(brandFacade.findAllBySubcategory_Id(subcategoryId)));
     }
 }

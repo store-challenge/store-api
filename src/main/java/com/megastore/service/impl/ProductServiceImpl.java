@@ -107,7 +107,8 @@ public class ProductServiceImpl implements ProductService {
         }
 
         if (productName != null && productName.length() >= 3) {
-            sql.append("WHERE " + "LOWER(p.product_title) LIKE " + "\'%" + productName.toLowerCase() + "%\'" + " ");
+            String escapedProductName = productName.replace("'", "''").toLowerCase();
+            sql.append("WHERE LOWER(p.product_title) LIKE '%" + escapedProductName + "%' ");
         }
 
         if (priceFrom != null && priceTo != null) {
