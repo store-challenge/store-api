@@ -123,10 +123,10 @@ public class ProductServiceImpl implements ProductService {
         }
 
         if (sortBy != null) {
-            sql.append("ORDER BY ");
+            sql.append("ORDER BY p.");
             sql.append(sortBy + " ");
-            if (sortBy.equals("p.product_title")) {
-            } else if (sortBy.equals("p.product_price")) {
+            if (sortBy.equals("product_title")) {
+            } else if (sortBy.equals("product_price")) {
             }
         }
 
