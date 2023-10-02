@@ -1,20 +1,13 @@
 package com.megastore.model;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -40,11 +33,12 @@ public class Product extends BaseEntity {
     @Column(name = "product_article", nullable = false)
     private Integer productArticle;
 
+    @Column(name="product_discount",columnDefinition = "decimal (10,2)", nullable = false)
+    private BigDecimal productDiscount;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "subcategory_id", referencedColumnName = "id")
     private SubCategories subCategories;
-
 
     @OneToMany(mappedBy = "product")
     private List<Images> images;
@@ -57,5 +51,6 @@ public class Product extends BaseEntity {
         super();
         this.price = BigDecimal.valueOf(0.0);
         this.images = new ArrayList<>();
+        this.productDiscount=BigDecimal.valueOf(0.0);
     }
 }

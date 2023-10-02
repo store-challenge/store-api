@@ -2,6 +2,7 @@ package com.megastore.data.dto;
 
 import com.megastore.model.Images;
 import com.megastore.model.Product;
+import com.megastore.util.DiscountUtil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,26 +29,33 @@ public class ProductPDPDto {
     private Long categoryId;
     private String categoryName;
     private String brand;
+    private BigDecimal discount;
+    private BigDecimal discountPrice;
     private List<String> images;
 
-    public ProductPDPDto(Product product){
+    public ProductPDPDto(Product product) {
         this.id = product.getId();
         this.title = product.getName();
         this.price = product.getPrice();
         this.description = product.getDescription();
-        this.isHot= product.getIsHotProduct();
-        this.productAvailable =product.getProductAvailable();
+        this.isHot = product.getIsHotProduct();
+        this.productAvailable = product.getProductAvailable();
         this.productArticle = product.getProductArticle();
         this.subcategoryId = product.getSubCategories().getId();
         this.subcategoryName = product.getSubCategories().getName();
         this.categoryId = product.getSubCategories().getCategories().getId();
         this.categoryName = product.getSubCategories().getCategories().getName();
         this.brand = product.getBrand().getName();
+        this.discount = product.getProductDiscount();
+        this.discountPrice = DiscountUtil.countDiscountPrice(price, discount);
+
         initImages(product);
     }
-    private void initImages(Product product){
+
+
+    private void initImages(Product product) {
         List<Images> image = product.getImages();
-        if(CollectionUtils.isNotEmpty(image)){
+        if (CollectionUtils.isNotEmpty(image)) {
             this.images = image.stream().map(Images::getPathImageURL).collect(Collectors.toList());
         }
     }
