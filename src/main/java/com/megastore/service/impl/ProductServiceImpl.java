@@ -33,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(readOnly = true)
     public Set<Product> findHotProducts(int limit, Long categoryId) {
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT DISTINCT ON (p.id) p.*, s.*, c.*, i.*, RANDOM() as random_order FROM product p ");
+        sql.append("SELECT p.*, s.*, c.*, i.* FROM product p ");
         sql.append("JOIN subcategories s ON p.subcategory_id = s.id ");
         sql.append("JOIN categories c ON s.category_id = c.id ");
         sql.append("JOIN images i ON p.id = i.product_id ");
@@ -43,7 +43,7 @@ public class ProductServiceImpl implements ProductService {
             sql.append("AND s.category_id = ? ");
         }
 
-        sql.append("ORDER BY p.id, random_order ");
+        sql.append("ORDER BY RANDOM() ");
         sql.append("LIMIT ?");
 
         List<Object> params = new ArrayList<>();
