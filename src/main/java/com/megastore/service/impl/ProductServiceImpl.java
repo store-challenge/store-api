@@ -7,8 +7,6 @@ import com.megastore.model.Images;
 import com.megastore.model.SubCategories;
 import com.megastore.repository.ProductRepository;
 import com.megastore.service.ProductService;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -33,26 +31,22 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(readOnly = true)
     public Set<Product> findHotProducts(int limit, Long categoryId) {
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT DISTINCT ON (p.id) p.*, s.*, c.*, i.* FROM product p ");
+        sql.append("SELECT DISTINCT ON (i.id) p.*, s.*, c.*, i.* FROM product p ");
         sql.append("JOIN subcategories s ON p.subcategory_id = s.id ");
         sql.append("JOIN categories c ON s.category_id = c.id ");
         sql.append("JOIN images i ON p.id = i.product_id ");
-        sql.append("WHERE p.product_hot = true ");
+        sql.append("GROUP BY p.id, s.id, c.id, i.id ");
+        sql.append("HAVING p.product_hot = true ");
 
         if (categoryId != null) {
-            sql.append("AND s.category_id = ? ");
+            sql.append("AND s.category_id = " + categoryId + " ");
+        } else {
+            sql.append("AND s.category_id >= (random()*10) ");
         }
 
-        sql.append("ORDER BY p.id, RANDOM() ");
-        sql.append("LIMIT ?");
+        sql.append("LIMIT " + limit + " ");
 
-        List<Object> params = new ArrayList<>();
-        if (categoryId != null) {
-            params.add(categoryId);
-        }
-        params.add(limit);
-
-        return new HashSet<>(jdbcTemplate.query(sql.toString(), params.toArray(), (rs, rowNum) -> {
+        return new HashSet<>(jdbcTemplate.query(sql.toString(), (rs, rowNum) -> {
             Product product = new Product();
             product.setId(rs.getLong("id"));
             product.setName(rs.getString("product_title"));

@@ -36,7 +36,7 @@ public class ProductHotDto {
 
     private void initImages(Product product) {
         List<Images> images = product.getImages();
-        if (CollectionUtils.isNotEmpty(images)) {
+        if (CollectionUtils.isNotEmpty(images) && !images.isEmpty()) {
             this.image = images.get(0).getPathImageURL();
         }
     }
