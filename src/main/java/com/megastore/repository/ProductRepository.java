@@ -2,10 +2,12 @@ package com.megastore.repository;
 
 
 import com.megastore.model.Product;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
+import java.util.*;
 
 
 @Repository
@@ -18,6 +20,10 @@ public interface ProductRepository extends BaseRepository<Product> {
             "JOIN images i ON p.id = i.product_id WHERE p.id =:id")
     Product findProductById (Long id);
 
-    Collection<Product> findAllByNameContainingIgnoreCase(String query);
+    @Query("SELECT p FROM Product p WHERE LOWER(TRIM(p.name)) = LOWER(TRIM(:query))")
+    Collection<Product> findExactMatch(String query);
+
+    @Query("SELECT p FROM Product p WHERE LOWER(TRIM(p.name)) LIKE LOWER(CONCAT('%', TRIM(:query), '%'))")
+    Collection<Product> findAllByNameContainingIgnoreCaseWithMultipleWords(String query);
 
 }
