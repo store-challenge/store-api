@@ -51,6 +51,7 @@ public class ProductServiceImpl implements ProductService {
             product.setId(rs.getLong("id"));
             product.setName(rs.getString("product_title"));
             product.setPrice(rs.getBigDecimal("product_price"));
+            product.setProductDiscount(rs.getBigDecimal("product_discount"));
             product.setDescription(rs.getString("product_description"));
             product.setIsHotProduct(rs.getBoolean("product_hot"));
             product.setProductAvailable(rs.getInt("product_available"));
@@ -139,6 +140,7 @@ public class ProductServiceImpl implements ProductService {
             product.setId(rs.getLong("id"));
             product.setName(rs.getString("product_title"));
             product.setPrice(rs.getBigDecimal("product_price"));
+            product.setProductDiscount(rs.getBigDecimal("product_discount"));
             product.setDescription(rs.getString("product_description"));
             product.setIsHotProduct(rs.getBoolean("product_hot"));
             product.setProductAvailable(rs.getInt("product_available"));
