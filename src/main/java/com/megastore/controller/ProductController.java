@@ -19,7 +19,7 @@ public class ProductController {
 
     private final ProductFacade productFacade;
 
-    public ProductController(ProductFacade productFacade, BrandFacade brandFacade) {
+    public ProductController(ProductFacade productFacade) {
         this.productFacade = productFacade;
     }
 
