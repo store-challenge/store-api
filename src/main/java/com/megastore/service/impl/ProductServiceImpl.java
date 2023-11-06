@@ -102,7 +102,11 @@ public class ProductServiceImpl implements ProductService {
         }
 
         if (productName != null && productName.length() >= 3) {
-            String escapedProductName = productName.replace("'", "''").toLowerCase();
+            String escapedProductName = productName
+                    .trim()
+                    .replace("'", "''")
+                    .replaceAll("\s+", " ")
+                    .toLowerCase();
             sql.append("WHERE LOWER(p.product_title) LIKE '%" + escapedProductName + "%' ");
         }
 
