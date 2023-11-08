@@ -8,7 +8,9 @@ import java.util.Set;
 
 public interface ProductService {
     Optional<Product> findProductById(Long id);
+
     Set<Product> findHotProducts(int limit, Long categoryId);
+
     Collection<Product> findAll(Long subcategoryId,
                                 String productName,
                                 Double priceFrom,

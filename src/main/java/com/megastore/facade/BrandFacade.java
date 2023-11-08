@@ -8,4 +8,6 @@ public interface BrandFacade {
     Collection<BrandDto> findAll();
 
     Collection<BrandDto> findAllBySubcategory_Id(Long subcategoryId);
+
+    Collection<BrandDto> findAllByProducts_Id(String productName);
 }
