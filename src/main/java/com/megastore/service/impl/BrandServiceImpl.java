@@ -46,7 +46,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Transactional(readOnly = true)
     @Override
-    public Collection<Brand> findAllByProducts_Id(String productName) {
+    public Collection<Brand> findAllBySearchedProducts(String productName) {
 
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT DISTINCT p.brand_id, b.name as brand_name FROM product p ");

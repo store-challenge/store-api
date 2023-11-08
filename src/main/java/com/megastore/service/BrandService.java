@@ -9,5 +9,5 @@ public interface BrandService {
 
     Collection<Brand> findAllBySubcategory_Id(Long subcategoryId);
 
-    Collection<Brand> findAllByProducts_Id(String productName);
+    Collection<Brand> findAllBySearchedProducts(String productName);
 }

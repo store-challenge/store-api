@@ -28,8 +28,8 @@ public class BrandController {
     }
 
     @GetMapping("/byProducts")
-    public ResponseEntity<Collection<BrandDto>> getAllBrandsByProductId(
+    public ResponseEntity<Collection<BrandDto>> getAllBrandsBySearchedProducts(
             @RequestParam(required = false) String productName) {
-        return ResponseEntity.ok(new ArrayList<>(brandFacade.findAllByProducts_Id(productName)));
+        return ResponseEntity.ok(new ArrayList<>(brandFacade.findAllBySearchedProducts(productName)));
     }
 }

@@ -28,7 +28,7 @@ public class BrandFacadeImpl implements BrandFacade {
     }
 
     @Override
-    public Collection<BrandDto> findAllByProducts_Id(String productName) {
-        return brandService.findAllByProducts_Id(productName).stream().map(BrandDto::new).toList();
+    public Collection<BrandDto> findAllBySearchedProducts(String productName) {
+        return brandService.findAllBySearchedProducts(productName).stream().map(BrandDto::new).toList();
     }
 }

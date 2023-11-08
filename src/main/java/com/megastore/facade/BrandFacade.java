@@ -9,5 +9,5 @@ public interface BrandFacade {
 
     Collection<BrandDto> findAllBySubcategory_Id(Long subcategoryId);
 
-    Collection<BrandDto> findAllByProducts_Id(String productName);
+    Collection<BrandDto> findAllBySearchedProducts(String productName);
 }
