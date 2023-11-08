@@ -8,4 +8,6 @@ public interface BrandService {
     Collection<Brand> findAll();
 
     Collection<Brand> findAllBySubcategory_Id(Long subcategoryId);
+
+    Collection<Brand> findAllBySearchedProducts(String productName);
 }

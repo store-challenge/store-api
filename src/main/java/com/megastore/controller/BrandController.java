@@ -13,9 +13,10 @@ import java.util.*;
 public class BrandController {
     private final BrandFacade brandFacade;
 
-    public BrandController( BrandFacade brandFacade) {
+    public BrandController(BrandFacade brandFacade) {
         this.brandFacade = brandFacade;
     }
+
     @GetMapping("/list")
     public ResponseEntity<Collection<BrandDto>> getAllBrands() {
         return ResponseEntity.ok(new ArrayList<>(brandFacade.findAll()));
@@ -24,5 +25,11 @@ public class BrandController {
     @GetMapping("/bySubcategory")
     public ResponseEntity<Collection<BrandDto>> getAllBrandsBySubcategoryId(@RequestParam(required = false) Long subcategoryId) {
         return ResponseEntity.ok(new ArrayList<>(brandFacade.findAllBySubcategory_Id(subcategoryId)));
+    }
+
+    @GetMapping("/byProducts")
+    public ResponseEntity<Collection<BrandDto>> getAllBrandsBySearchedProducts(
+            @RequestParam(required = false) String productName) {
+        return ResponseEntity.ok(new ArrayList<>(brandFacade.findAllBySearchedProducts(productName)));
     }
 }
