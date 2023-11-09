@@ -122,12 +122,10 @@ public class ProductServiceImpl implements ProductService {
             sql.append("b.id IN (" + brands.stream().map(String::valueOf).collect(Collectors.joining(",")) + ") ");
         }
 
-        if (sortBy != null) {
-            sql.append("ORDER BY p.");
-            sql.append(sortBy + " ");
-            if (sortBy.equals("product_title")) {
-            } else if (sortBy.equals("product_price")) {
-            }
+        if (sortBy != null && !sortBy.equals("product_price")) {
+            sql.append("ORDER BY p.").append(sortBy).append(" ");
+        } else {
+            sql.append("ORDER BY (p.product_price - (p.product_price * p.product_discount/100)) ");
         }
 
         sql.append(" ");
