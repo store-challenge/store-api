@@ -91,25 +91,26 @@ public class ProductServiceImpl implements ProductService {
                                        Integer limit) {
 
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT *, c.name as category_name, b.name as brand_name FROM product p ");
+        sql.append("SELECT *, " +
+                "s.name as subcategory_name, s.id as subcategory_id, " +
+                "c.name as category_name, c.id as category_id, " +
+                "b.name as brand_name, b.id as brand_id, " +
+                "img.id as image_id, img.path_url " +
+                "FROM product p ");
         sql.append("JOIN subcategories s ON p.subcategory_id = s.id ");
         sql.append("JOIN categories c ON s.category_id = c.id ");
-        sql.append("JOIN images img ON p.id = img.product_id ");
+        sql.append("LEFT JOIN images img ON p.id = img.product_id ");
         sql.append("JOIN brand b ON p.brand_id = b.id ");
 
+        if (productName != null && !productName.isEmpty()) {
+            String cleanedQuery = productName.trim().replaceAll("\\s+", " ");
+            String escapedQuery = cleanedQuery.replace("'", "''").toLowerCase();
+            sql.append("WHERE LOWER(p.product_title) LIKE '%" + escapedQuery + "%' ");
+        }
+
         if (subcategoryId != null) {
-            sql.append("WHERE s.id = " + subcategoryId + " ");
+            sql.append("AND s.id = " + subcategoryId + " ");
         }
-
-        if (productName != null && productName.length() >= 3) {
-            String escapedProductName = productName
-                    .trim()
-                    .replace("'", "''")
-                    .replaceAll("\s+", " ")
-                    .toLowerCase();
-            sql.append("WHERE LOWER(p.product_title) LIKE '%" + escapedProductName + "%' ");
-        }
-
         if (priceFrom != null && priceTo != null) {
             sql.append("AND p.product_price BETWEEN " + priceFrom + " AND " + priceTo + "  ");
         } else if (priceFrom != null && priceTo == null) {
@@ -139,41 +140,52 @@ public class ProductServiceImpl implements ProductService {
 
         sql.append("LIMIT " + limit);
 
-        return jdbcTemplate.query(sql.toString(), (rs, rowNum) -> {
-            Product product = new Product();
-            product.setId(rs.getLong("id"));
-            product.setName(rs.getString("product_title"));
-            product.setPrice(rs.getBigDecimal("product_price"));
-            product.setProductDiscount(rs.getBigDecimal("product_discount"));
-            product.setDescription(rs.getString("product_description"));
-            product.setIsHotProduct(rs.getBoolean("product_hot"));
-            product.setProductAvailable(rs.getInt("product_available"));
-            product.setProductArticle(rs.getInt("product_article"));
+        return jdbcTemplate.query(sql.toString(), (rs) -> {
+            Map<Long, Product> productMap = new HashMap<>();
 
-            SubCategories subCategories = new SubCategories();
-            subCategories.setId(rs.getLong("subcategory_id"));
-            subCategories.setName(rs.getString("name"));
-            product.setSubCategories(subCategories);
+            while (rs.next()) {
+                Long productId = rs.getLong("id");
 
-            Categories categories = new Categories();
-            categories.setId(rs.getLong("category_id"));
-            categories.setName(rs.getString("category_name"));
-            subCategories.setCategories(categories);
-            product.setSubCategories(subCategories);
+                if (!productMap.containsKey(productId)) {
+                    Product product = new Product();
+                    product.setId(productId);
+                    product.setName(rs.getString("product_title"));
+                    product.setPrice(rs.getBigDecimal("product_price"));
+                    product.setProductDiscount(rs.getBigDecimal("product_discount"));
+                    product.setDescription(rs.getString("product_description"));
+                    product.setIsHotProduct(rs.getBoolean("product_hot"));
+                    product.setProductAvailable(rs.getInt("product_available"));
+                    product.setProductArticle(rs.getInt("product_article"));
 
-            List<Images> imagesList = new ArrayList<>();
-            Images image = new Images();
-            image.setId(rs.getLong("id"));
-            image.setPathImageURL(rs.getString("path_url"));
-            imagesList.add(image);
-            product.setImages(imagesList);
+                    SubCategories subCategories = new SubCategories();
+                    subCategories.setId(rs.getLong("subcategory_id"));
+                    subCategories.setName(rs.getString("subcategory_name"));
+                    product.setSubCategories(subCategories);
 
-            Brand brandProduct = new Brand();
-            brandProduct.setId(rs.getLong("brand_id"));
-            brandProduct.setName(rs.getString("brand_name"));
-            product.setBrand(brandProduct);
+                    Categories categories = new Categories();
+                    categories.setId(rs.getLong("category_id"));
+                    categories.setName(rs.getString("category_name"));
+                    subCategories.setCategories(categories);
+                    product.setSubCategories(subCategories);
 
-            return product;
+                    Brand brandProduct = new Brand();
+                    brandProduct.setId(rs.getLong("brand_id"));
+                    brandProduct.setName(rs.getString("brand_name"));
+                    product.setBrand(brandProduct);
+
+                    List<Images> imagesList = new ArrayList<>();
+                    product.setImages(imagesList);
+
+                    productMap.put(productId, product);
+                }
+
+                Images image = new Images();
+                image.setId(rs.getLong("image_id"));
+                image.setPathImageURL(rs.getString("path_url"));
+                productMap.get(productId).getImages().add(image);
+            }
+
+            return productMap.values();
         });
     }
 
