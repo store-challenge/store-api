@@ -5,9 +5,6 @@ import com.megastore.model.Brand;
 import java.util.Collection;
 
 public interface BrandService {
-    Collection<Brand> findAll();
+    Collection<Brand> findAll(Long subcategoryId, String productName);
 
-    Collection<Brand> findAllBySubcategory_Id(Long subcategoryId);
-
-    Collection<Brand> findAllBySearchedProducts(String productName);
 }

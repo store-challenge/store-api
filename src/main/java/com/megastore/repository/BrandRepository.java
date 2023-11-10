@@ -10,5 +10,5 @@ import java.util.List;
 public interface BrandRepository extends BaseRepository<Brand> {
 
     @Query(value = "SELECT b.* FROM brand b ORDER BY b.name ASC", nativeQuery = true)
-    List<Brand> findAll();
+    List<Brand> findAll(Long subcategoryId, String productName);
 }

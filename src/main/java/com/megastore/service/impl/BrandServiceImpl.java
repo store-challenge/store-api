@@ -22,37 +22,18 @@ public class BrandServiceImpl implements BrandService {
 
     @Transactional(readOnly = true)
     @Override
-    public Collection<Brand> findAll() {
-        return brandRepository.findAll();
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public Collection<Brand> findAllBySubcategory_Id(Long subcategoryId) {
-
-        StringBuilder sql = new StringBuilder();
-        sql.append("SELECT DISTINCT p.brand_id, b.name as brand_name FROM product p ");
-        sql.append("JOIN subcategories s ON p.subcategory_id = s.id ");
-        sql.append("JOIN brand b ON p.brand_id = b.id ");
-        sql.append("WHERE s.id = " + subcategoryId + " ");
-
-        return jdbcTemplate.query(sql.toString(), (rs, rowNum) -> {
-            Brand brandProduct = new Brand();
-            brandProduct.setId(rs.getLong("brand_id"));
-            brandProduct.setName(rs.getString("brand_name"));
-            return brandProduct;
-        });
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public Collection<Brand> findAllBySearchedProducts(String productName) {
+    public Collection<Brand> findAll(Long subcategoryId, String productName) {
 
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT DISTINCT p.brand_id, b.name as brand_name FROM product p ");
         sql.append("JOIN brand b ON p.brand_id = b.id ");
 
-        if (productName != null && productName.length() >= 3) {
+        if (subcategoryId != null) {
+            sql.append("JOIN subcategories s ON p.subcategory_id = s.id ");
+            sql.append("WHERE s.id = " + subcategoryId + " ");
+        }
+
+        if (productName.length() >= 3) {
             String escapedProductName = productName
                     .trim()
                     .replace("'", "''")
@@ -67,5 +48,7 @@ public class BrandServiceImpl implements BrandService {
             brandProduct.setName(rs.getString("brand_name"));
             return brandProduct;
         });
+
     }
+
 }
