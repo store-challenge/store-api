@@ -109,7 +109,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
         if (subcategoryId != null) {
-            sql.append("AND s.id = " + subcategoryId + " ");
+            sql.append("WHERE s.id = ").append(subcategoryId).append(" ");
         }
         if (priceFrom != null && priceTo != null) {
             sql.append("AND p.product_price BETWEEN " + priceFrom + " AND " + priceTo + "  ");
