@@ -22,18 +22,14 @@ public class Order extends BaseEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "receiver_id", referencedColumnName = "id")
-    private Receiver receiver;
-
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, optional = false)
     private Delivery delivery;
 
     @Column(nullable = false)
-    private boolean paymentType;
+    private String typePayment;
 
     @Column(columnDefinition = "TEXT")
-    private String message;
+    private String comment;
 
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, optional = false)
     private Cart cart;

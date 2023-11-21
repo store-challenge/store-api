@@ -23,14 +23,8 @@ public class Delivery {
     @Column(name = "country", nullable = false)
     private String country;
 
-    @Column(name = "city", nullable = false)
-    private String city;
-
-    @Column(name = "department", nullable = false)
-    private String department;
-
-    @Column(name = "post", nullable = false)
-    private String post;
+    @Column(name = "typeDelivery", nullable = false)
+    private String typeDelivery;
 
     //Order
     @MapsId
