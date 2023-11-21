@@ -7,9 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Service
 public class BrandServiceImpl implements BrandService {
@@ -24,19 +22,25 @@ public class BrandServiceImpl implements BrandService {
 
     @Transactional(readOnly = true)
     @Override
-    public Collection<Brand> findAll() {
-        return brandRepository.findAll();
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public Collection<Brand> findAllBySubcategory_Id(Long subcategoryId) {
+    public Collection<Brand> findAll(Long subcategoryId, String productName) {
 
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT DISTINCT p.brand_id, b.name as brand_name FROM product p ");
-        sql.append("JOIN subcategories s ON p.subcategory_id = s.id ");
         sql.append("JOIN brand b ON p.brand_id = b.id ");
-        sql.append("WHERE s.id = " + subcategoryId + " ");
+
+        if (subcategoryId != null) {
+            sql.append("JOIN subcategories s ON p.subcategory_id = s.id ");
+            sql.append("WHERE s.id = " + subcategoryId + " ");
+        }
+
+        if (productName.length() >= 3) {
+            String escapedProductName = productName
+                    .trim()
+                    .replace("'", "''")
+                    .replaceAll("\s+", " ")
+                    .toLowerCase();
+            sql.append("WHERE LOWER(p.product_title) LIKE '%" + escapedProductName + "%' ");
+        }
 
         return jdbcTemplate.query(sql.toString(), (rs, rowNum) -> {
             Brand brandProduct = new Brand();
@@ -44,5 +48,7 @@ public class BrandServiceImpl implements BrandService {
             brandProduct.setName(rs.getString("brand_name"));
             return brandProduct;
         });
+
     }
+
 }

@@ -1,19 +1,22 @@
 package com.megastore.data.dto;
 
+import com.megastore.model.Images;
 import com.megastore.model.Product;
 import com.megastore.util.DiscountUtil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class ProductPLPDto {
-
 
     private Long id;
     private Date updated;
@@ -46,9 +49,9 @@ public class ProductPLPDto {
         this.subcategoryName = product.getSubCategories().getName();
         this.categoryId = product.getSubCategories().getCategories().getId();
         this.categoryName = product.getSubCategories().getCategories().getName();
-        this.image = product.getImages().get(0).getPathImageURL();
         this.discount = product.getProductDiscount();
         this.discountPrice = DiscountUtil.countDiscountPrice(price, discount);
+        this.image = product.getImages().get(product.getImages().size()-1).getPathImageURL();
     }
 }
 

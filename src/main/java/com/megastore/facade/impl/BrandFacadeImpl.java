@@ -6,6 +6,7 @@ import com.megastore.service.BrandService;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class BrandFacadeImpl implements BrandFacade {
@@ -17,11 +18,8 @@ public class BrandFacadeImpl implements BrandFacade {
     }
 
     @Override
-    public Collection<BrandDto> findAll() {
-        return brandService.findAll().stream().map(BrandDto::new).toList();
+    public Collection<BrandDto> findAll(Long subcategoryId, String productName) {
+        return brandService.findAll(subcategoryId, productName).stream().map(BrandDto::new).toList();
     }
 
-    public Collection<BrandDto> findAllBySubcategory_Id(Long subcategoryId) {
-        return brandService.findAllBySubcategory_Id(subcategoryId).stream().map(BrandDto::new).toList();
-    }
 }

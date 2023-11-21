@@ -13,16 +13,14 @@ import java.util.*;
 public class BrandController {
     private final BrandFacade brandFacade;
 
-    public BrandController( BrandFacade brandFacade) {
+    public BrandController(BrandFacade brandFacade) {
         this.brandFacade = brandFacade;
     }
+
     @GetMapping("/list")
-    public ResponseEntity<Collection<BrandDto>> getAllBrands() {
-        return ResponseEntity.ok(new ArrayList<>(brandFacade.findAll()));
+    public ResponseEntity<Collection<BrandDto>> getAllBrands(@RequestParam(required = false) Long subcategoryId,
+                                                             @RequestParam(required = false, defaultValue = "") String productName) {
+        return ResponseEntity.ok(new ArrayList<>(brandFacade.findAll(subcategoryId, productName)));
     }
 
-    @GetMapping("/bySubcategory")
-    public ResponseEntity<Collection<BrandDto>> getAllBrandsBySubcategoryId(@RequestParam(required = false) Long subcategoryId) {
-        return ResponseEntity.ok(new ArrayList<>(brandFacade.findAllBySubcategory_Id(subcategoryId)));
-    }
 }
